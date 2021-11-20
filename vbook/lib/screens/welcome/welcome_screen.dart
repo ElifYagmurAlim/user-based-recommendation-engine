@@ -9,20 +9,6 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Scaffold(
-      body: Container(
-        alignment: Alignment.center,
-        color: Colors.white,
-        child: Column(
-          children: <Widget>[
-            Container(
-              color: Colors.blue,
-              height: 100,
-              width: 100,
-            )
-          ],
-        ),
-      ),
-    );
+    return Scaffold();
   }
 }
