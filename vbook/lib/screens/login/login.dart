@@ -6,15 +6,9 @@ class VbookLogin extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      body: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.all(20.0),
-            ),
-          )
-        ],
+      body: Container(
+        alignment: Alignment.center,
+        color: const Color.fromARGB(255, 231, 76, 60),
       ),
     );
   }
