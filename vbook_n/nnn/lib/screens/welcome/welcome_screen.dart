@@ -52,9 +52,20 @@ class WelcomeScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10.0),
               ),
               onPressed: () {},
-              child: Text(
-                "MaterialButton",
-                style: TextStyle(color: Colors.white),
+              child: Container(
+                width: 275.0,
+                height: 40.0,
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const <Widget>[
+                      SizedBox(
+                        child: Text(
+                          "Sign In",
+                          style: TextStyle(color: Colors.white),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ]),
               ),
             ),
             MaterialButton(
@@ -64,17 +75,31 @@ class WelcomeScreen extends StatelessWidget {
                 side: BorderSide(color: Colors.grey),
               ),
               onPressed: () {},
-              child: Row(children: const <Widget>[
-                Text(
-                  "No account yet?",
-                  style: TextStyle(color: Colors.grey),
-                ),
-                Text(
-                  "Sign Up",
-                  style: TextStyle(color: Color.fromARGB(255, 255, 138, 57)),
-                ),
-              ]),
-            )
+              child: Container(
+                width: 275.0,
+                height: 40.0,
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const <Widget>[
+                      SizedBox(
+                        child: Text(
+                          "No account yet?",
+                          style: TextStyle(color: Colors.grey),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      SizedBox(
+                        child: Text(
+                          "Sign Up",
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 255, 138, 57)),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ]),
+              ),
+            ),
+            Padding(padding: EdgeInsets.all(16.0)),
           ],
         ),
       )),
