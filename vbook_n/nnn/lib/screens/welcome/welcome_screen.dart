@@ -35,7 +35,7 @@ class WelcomeScreen extends StatelessWidget {
               child: Text(
                 'Sign in or create a new account',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 12),
+                style: TextStyle(fontSize: 12, color: Colors.grey[350]),
               ),
               height: 32,
               width: 200,
