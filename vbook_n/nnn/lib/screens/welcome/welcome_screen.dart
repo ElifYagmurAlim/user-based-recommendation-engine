@@ -2,6 +2,8 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nnn/screens/login/login_screen.dart';
+import 'package:nnn/screens/register/reigster_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
@@ -11,14 +13,10 @@ class WelcomeScreen extends StatelessWidget {
     // TODO: implement build
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: const Text('Expanded Column Sample'),
-        backgroundColor: Color.fromARGB(255, 230, 126, 34),
-      ),
       body: Center(
           child: Column(
         children: <Widget>[
-          Padding(padding: EdgeInsets.all(36.0)),
+          Padding(padding: EdgeInsets.all(48.0)),
           // ignore: prefer_const_constructors, duplicate_ignore
           SizedBox(
             // ignore: prefer_const_constructors
@@ -43,7 +41,7 @@ class WelcomeScreen extends StatelessWidget {
           Expanded(
             child: Padding(
               padding: EdgeInsets.all(0.5),
-              child: Image.asset("assets/images/welcomelogo.png"),
+              child: Image.asset("assets/images/welcome_logo.png"),
             ),
           ),
           Padding(
@@ -53,7 +51,12 @@ class WelcomeScreen extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12.0),
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LoginScreen()),
+                );
+              },
               child: Container(
                 width: 275.0,
                 height: 45.0,
@@ -79,7 +82,13 @@ class WelcomeScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12.0),
                 side: BorderSide(color: Colors.grey.shade300),
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const RegisterScreen()),
+                );
+              },
               child: Container(
                 width: 275.0,
                 height: 45.0,
