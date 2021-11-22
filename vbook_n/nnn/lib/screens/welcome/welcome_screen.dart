@@ -10,57 +10,59 @@ class WelcomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text('Expanded Column Sample'),
+        backgroundColor: Color.fromARGB(255, 230, 126, 34),
       ),
       body: Center(
-          child: Container(
-        color: Colors.white,
-        child: Column(
-          children: <Widget>[
-            Padding(padding: EdgeInsets.all(32.0)),
-            // ignore: prefer_const_constructors, duplicate_ignore
-            SizedBox(
-              // ignore: prefer_const_constructors
-              child: Text(
-                'Welcome!',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 32),
-              ),
-              height: 32,
-              width: 200,
+          child: Column(
+        children: <Widget>[
+          Padding(padding: EdgeInsets.all(36.0)),
+          // ignore: prefer_const_constructors, duplicate_ignore
+          SizedBox(
+            // ignore: prefer_const_constructors
+            child: Text(
+              'Welcome!',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 32),
             ),
-            Padding(padding: EdgeInsets.all(8.0)),
-            SizedBox(
-              child: Text(
-                'Sign in or create a new account',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 12, color: Colors.grey[350]),
-              ),
-              height: 32,
-              width: 200,
+            height: 32,
+            width: 200,
+          ),
+          Padding(padding: EdgeInsets.all(8.0)),
+          SizedBox(
+            child: Text(
+              'Sign in or create a new account',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 12, color: Colors.grey[350]),
             ),
-            Expanded(
-              child: Padding(
-                padding: EdgeInsets.all(0.5),
-                child: Image.asset("assets/images/welcomelogo.png"),
-              ),
+            height: 32,
+            width: 200,
+          ),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.all(0.5),
+              child: Image.asset("assets/images/welcomelogo.png"),
             ),
-            MaterialButton(
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 48.0, bottom: 4.0),
+            child: MaterialButton(
               color: Color.fromARGB(255, 255, 138, 57),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
+                borderRadius: BorderRadius.circular(12.0),
               ),
               onPressed: () {},
               child: Container(
                 width: 275.0,
-                height: 40.0,
+                height: 45.0,
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: const <Widget>[
                       SizedBox(
                         child: Text(
-                          "Sign In",
+                          "Go to Sign In",
                           style: TextStyle(color: Colors.white),
                           textAlign: TextAlign.center,
                         ),
@@ -68,23 +70,26 @@ class WelcomeScreen extends StatelessWidget {
                     ]),
               ),
             ),
-            MaterialButton(
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 4.0, bottom: 4.0),
+            child: MaterialButton(
               color: Colors.white,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-                side: BorderSide(color: Colors.grey),
+                borderRadius: BorderRadius.circular(12.0),
+                side: BorderSide(color: Colors.grey.shade300),
               ),
               onPressed: () {},
               child: Container(
                 width: 275.0,
-                height: 40.0,
+                height: 45.0,
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const <Widget>[
+                    children: <Widget>[
                       SizedBox(
                         child: Text(
-                          "No account yet?",
-                          style: TextStyle(color: Colors.grey),
+                          "No account yet? ",
+                          style: TextStyle(color: Colors.grey[600]),
                           textAlign: TextAlign.center,
                         ),
                       ),
@@ -99,9 +104,9 @@ class WelcomeScreen extends StatelessWidget {
                     ]),
               ),
             ),
-            Padding(padding: EdgeInsets.all(16.0)),
-          ],
-        ),
+          ),
+          Padding(padding: EdgeInsets.all(24.0)),
+        ],
       )),
     );
   }
