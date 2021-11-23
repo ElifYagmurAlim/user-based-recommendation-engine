@@ -65,7 +65,7 @@ class RegisterScreen extends StatelessWidget {
                       style: TextStyle(
                           fontSize: 16, color: Colors.white.withOpacity(0.7)),
                     )),
-                height: 24,
+                height: 28,
                 width: 200,
               ),
               Padding(

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'localwidgets/login_form_screen.dart';
+
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
@@ -7,6 +9,7 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Color.fromARGB(255, 231, 76, 60),
       body: Center(
           child: Stack(
@@ -39,90 +42,39 @@ class LoginScreen extends StatelessWidget {
                       'WELCOME TO',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontSize: 16, color: Colors.white.withOpacity(0.5)),
+                          fontSize: 18, color: Colors.white.withOpacity(0.8)),
                     )),
                 height: 32,
                 width: 200,
               ),
               Container(
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 120.0),
+                  padding: EdgeInsets.symmetric(horizontal: 100.0),
                   child: Image.asset(
                     "assets/images/vbook_w.png",
                     fit: BoxFit.fitWidth,
                   ),
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.only(top: 48.0, bottom: 4.0),
-                child: MaterialButton(
-                  color: Color.fromARGB(255, 255, 138, 57),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                  onPressed: () {},
-                  child: Container(
-                    width: 275.0,
-                    height: 45.0,
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const <Widget>[
-                          SizedBox(
-                            child: Text(
-                              "Go to Sign In",
-                              style: TextStyle(color: Colors.white),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        ]),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 4.0, bottom: 4.0),
-                child: MaterialButton(
-                  color: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                    side: BorderSide(color: Colors.grey.shade300),
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const LoginScreen()),
-                    );
-                  },
-                  child: Container(
-                    width: 275.0,
-                    height: 45.0,
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          SizedBox(
-                            child: Text(
-                              "No account yet? ",
-                              style: TextStyle(color: Colors.grey[600]),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                          SizedBox(
-                            child: Text(
-                              "Sign Up",
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 255, 138, 57)),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        ]),
-                  ),
-                ),
-              ),
               Padding(padding: EdgeInsets.all(24.0)),
+              SizedBox(
+                child: Padding(
+                    padding: EdgeInsets.only(top: 2.0, bottom: 4.0),
+                    child: Text(
+                      'Sign In',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 16, color: Colors.white.withOpacity(0.7)),
+                    )),
+                height: 28,
+                width: 200,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.0),
+                child: LoginFormScreen(),
+              )
             ],
           ),
-
-          // ignore: prefer_const_constructors, duplicate_ignore
         ],
       )),
     );

@@ -13,7 +13,7 @@ class ContainerFormScreen extends StatelessWidget {
       padding: EdgeInsets.all(18.0),
       decoration: BoxDecoration(
         color: Colors.white.withOpacity(.2),
-        borderRadius: BorderRadius.circular(20.0),
+        borderRadius: BorderRadius.circular(18.0),
         boxShadow: [
           BoxShadow(
             color: Colors.blue.withOpacity(.1),
