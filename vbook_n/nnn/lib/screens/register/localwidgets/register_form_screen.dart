@@ -21,6 +21,7 @@ class _RegisterFormScreen extends State<RegisterFormScreen> {
   void _signUpUser(String email, String password, BuildContext context) async {
     CurrentUser _currentUser = Provider.of<CurrentUser>(context, listen: false);
     try {
+      print("password");
       String returnString = await _currentUser.signUpUser(email, password);
       if (returnString == "Success") {
         Navigator.pop(context);
@@ -144,27 +145,17 @@ class _RegisterFormScreen extends State<RegisterFormScreen> {
           SizedBox(
             height: 16.0,
           ),
-          MaterialButton(
-            color: Colors.white,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-            child: Container(
-              height: 45.0,
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const <Widget>[
-                    SizedBox(
-                      child: Text(
-                        "Sign Up",
-                        style: TextStyle(
-                            fontSize: 16,
-                            color: Color.fromARGB(255, 255, 138, 57),
-                            fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ]),
+          RaisedButton(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 100),
+              child: Text(
+                "Sign Up",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20.0,
+                ),
+              ),
             ),
             onPressed: () {
               if (_passwordController.text == _confirmPasswordController.text) {

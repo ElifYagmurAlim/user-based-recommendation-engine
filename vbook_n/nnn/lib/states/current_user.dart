@@ -41,6 +41,7 @@ class CurrentUser extends ChangeNotifier {
 
   Future<String> signUpUser(String email, String password) async {
     String retVal = "Error";
+    print(email);
     try {
       print(email);
       await _auth.createUserWithEmailAndPassword(
