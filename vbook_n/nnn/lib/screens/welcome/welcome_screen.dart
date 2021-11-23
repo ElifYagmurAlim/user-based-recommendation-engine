@@ -3,7 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nnn/screens/login/login_screen.dart';
-import 'package:nnn/screens/register/reigster_screen.dart';
+import 'package:nnn/screens/register/register_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
@@ -85,8 +85,7 @@ class WelcomeScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => const RegisterScreen()),
+                  MaterialPageRoute(builder: (context) => RegisterScreen()),
                 );
               },
               child: Container(
