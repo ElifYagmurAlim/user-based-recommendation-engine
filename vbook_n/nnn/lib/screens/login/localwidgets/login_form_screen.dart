@@ -1,10 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:nnn/screens/welcome/welcome_screen.dart';
+import 'package:nnn/screens/home/home_screen.dart';
 import 'package:nnn/screens/widgets/container_form_screen.dart';
-import 'package:nnn/states/current_user.dart';
-import 'package:provider/provider.dart';
 
 class LoginFormScreen extends StatefulWidget {
   const LoginFormScreen({Key? key}) : super(key: key);
@@ -14,34 +13,8 @@ class LoginFormScreen extends StatefulWidget {
 }
 
 class _LoginFormScreen extends State<LoginFormScreen> {
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
-
-  void _loginUser(String email, String password, BuildContext context) async {
-    CurrentUser _currentUser = Provider.of<CurrentUser>(context, listen: false);
-    try {
-      String returnString =
-          await _currentUser.loginUserWithEmail(email, password);
-      if (returnString == "Success") {
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (context) => WelcomeScreen(),
-          ),
-          (route) => false,
-        );
-      } else {
-        Scaffold.of(context).showSnackBar(
-          SnackBar(
-            content: Text(returnString),
-            duration: Duration(seconds: 2),
-          ),
-        );
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +84,7 @@ class _LoginFormScreen extends State<LoginFormScreen> {
                   children: const <Widget>[
                     SizedBox(
                       child: Text(
-                        "Sign Up",
+                        "Log in",
                         style: TextStyle(
                             fontSize: 16,
                             color: Color.fromARGB(255, 231, 76, 60),
@@ -121,9 +94,21 @@ class _LoginFormScreen extends State<LoginFormScreen> {
                     ),
                   ]),
             ),
-            onPressed: () {
-              _loginUser(
-                  _emailController.text, _passwordController.text, context);
+            onPressed: () async {
+              try {
+                UserCredential userCredential = await FirebaseAuth.instance
+                    .signInWithEmailAndPassword(
+                        email: _emailController.text,
+                        password: _passwordController.text);
+                if (userCredential != null) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => HomeScreen()),
+                  );
+                }
+              } catch (e) {
+                print(e);
+              }
             },
           ),
         ],

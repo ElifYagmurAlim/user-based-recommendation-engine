@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "844437450837",
-    "project_id": "vbook-66adc",
-    "storage_bucket": "vbook-66adc.appspot.com"
+    "project_number": "1009991730127",
+    "project_id": "vbook-493df",
+    "storage_bucket": "vbook-493df.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:844437450837:android:61ce356e00eae7229c24dc",
+        "mobilesdk_app_id": "1:1009991730127:android:4294ee9a1d3a44d61e08ba",
         "android_client_info": {
-          "package_name": "com.example.flutter_application_2"
+          "package_name": "com.example.nnn"
         }
       },
       "oauth_client": [
         {
-          "client_id": "844437450837-skvk4a6pkbl6g9g0ip07h72f6mbpthp9.apps.googleusercontent.com",
+          "client_id": "1009991730127-97kjm348vd61d89r3rlbhkg6shuohd2l.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCsRHhxu0kaVu1NsdIqV0wO0oStHUJEHzA"
+          "current_key": "AIzaSyBLrx7_h0qu-FbTPD6ZoXxa492xCGfBvh4"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "844437450837-skvk4a6pkbl6g9g0ip07h72f6mbpthp9.apps.googleusercontent.com",
+              "client_id": "1009991730127-97kjm348vd61d89r3rlbhkg6shuohd2l.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

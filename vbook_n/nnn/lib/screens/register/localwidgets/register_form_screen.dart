@@ -1,9 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:nnn/screens/welcome/welcome_screen.dart';
 import 'package:nnn/screens/widgets/container_form_screen.dart';
-import 'package:nnn/states/current_user.dart';
-import 'package:provider/provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class RegisterFormScreen extends StatefulWidget {
   const RegisterFormScreen({Key? key}) : super(key: key);
@@ -13,30 +13,13 @@ class RegisterFormScreen extends StatefulWidget {
 }
 
 class _RegisterFormScreen extends State<RegisterFormScreen> {
-  TextEditingController _fullNameController = TextEditingController();
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
-  TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _fullNameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
 
-  void _signUpUser(String email, String password, BuildContext context) async {
-    CurrentUser _currentUser = Provider.of<CurrentUser>(context, listen: false);
-    try {
-      print("password");
-      String returnString = await _currentUser.signUpUser(email, password);
-      if (returnString == "Success") {
-        Navigator.pop(context);
-      } else {
-        Scaffold.of(context).showSnackBar(
-          SnackBar(
-            content: Text(returnString),
-            duration: Duration(seconds: 2),
-          ),
-        );
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
+  FirebaseAuth auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -145,29 +128,43 @@ class _RegisterFormScreen extends State<RegisterFormScreen> {
           SizedBox(
             height: 16.0,
           ),
-          RaisedButton(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 100),
-              child: Text(
-                "Sign Up",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20.0,
-                ),
-              ),
+          MaterialButton(
+            color: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8.0),
             ),
-            onPressed: () {
-              if (_passwordController.text == _confirmPasswordController.text) {
-                _signUpUser(
-                    _emailController.text, _passwordController.text, context);
-              } else {
-                Scaffold.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text("Passwords do not match"),
-                    duration: Duration(seconds: 2),
-                  ),
-                );
+            child: Container(
+              height: 45.0,
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const <Widget>[
+                    SizedBox(
+                      child: Text(
+                        "Register",
+                        style: TextStyle(
+                            fontSize: 16,
+                            color: Color.fromARGB(255, 255, 138, 57),
+                            fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ]),
+            ),
+            onPressed: () async {
+              try {
+                UserCredential userCredential = await FirebaseAuth.instance
+                    .createUserWithEmailAndPassword(
+                        email: _emailController.text,
+                        password: _passwordController.text);
+
+                if (userCredential != null) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => WelcomeScreen()),
+                  );
+                }
+              } catch (e) {
+                print(e);
               }
             },
           ),
