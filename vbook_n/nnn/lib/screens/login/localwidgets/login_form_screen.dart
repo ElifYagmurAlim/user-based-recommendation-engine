@@ -100,11 +100,24 @@ class _LoginFormScreen extends State<LoginFormScreen> {
                     .signInWithEmailAndPassword(
                         email: _emailController.text,
                         password: _passwordController.text);
-                if (userCredential != null) {
+
+                User? user = FirebaseAuth.instance.currentUser;
+
+                if (user != null) {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => HomeScreen()),
                   );
+                }
+              } on FirebaseAuthException catch (e) {
+                if (e.code == 'user-not-found') {
+                  final snackBar =
+                      SnackBar(content: Text('No user found for that email.'));
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                } else if (e.code == 'wrong-password') {
+                  final snackBar = SnackBar(
+                      content: Text('Wrong password provided for that user.'));
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 }
               } catch (e) {
                 print(e);

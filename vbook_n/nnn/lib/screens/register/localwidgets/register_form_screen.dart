@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:nnn/screens/home/home_screen.dart';
 import 'package:nnn/screens/welcome/welcome_screen.dart';
 import 'package:nnn/screens/widgets/container_form_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -157,11 +158,34 @@ class _RegisterFormScreen extends State<RegisterFormScreen> {
                         email: _emailController.text,
                         password: _passwordController.text);
 
-                if (userCredential != null) {
+                User? user = FirebaseAuth.instance.currentUser;
+
+                if (user != null && !user.emailVerified) {
+                  await user.sendEmailVerification();
+                  final snackBar = SnackBar(
+                      content: Text(
+                          'Registeration Success! Please verify your email address to continue'));
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => WelcomeScreen()),
                   );
+                } else {
+                  final snackBar = SnackBar(
+                      content: Text(
+                          'Account Creation Failed. Something Went Wrong.'));
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                }
+              } on FirebaseAuthException catch (e) {
+                if (e.code == 'weak-password') {
+                  final snackBar = SnackBar(
+                      content: Text('The password provided is too weak.'));
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                } else if (e.code == 'email-already-in-use') {
+                  final snackBar = SnackBar(
+                      content:
+                          Text('The account already exists for that email.'));
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 }
               } catch (e) {
                 print(e);
