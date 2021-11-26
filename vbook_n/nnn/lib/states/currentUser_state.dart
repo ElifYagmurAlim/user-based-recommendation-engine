@@ -6,18 +6,11 @@ import 'package:nnn/models/user.dart';
 import 'package:nnn/services/database.dart';
 
 class CurrentUserState extends ChangeNotifier {
-  CurrentUser _currentUser =
-      CurrentUser(userID: userID, email: email, userName: userName);
+  CurrentUser _currentUser = CurrentUser(userID: '', email: '', userName: '');
 
   CurrentUser get getCurrentUser => _currentUser;
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
-  static get email => null;
-
-  static get userID => null;
-
-  static get userName => null;
 
   Future<String> onStartUp() async {
     String retVal = "Error";
