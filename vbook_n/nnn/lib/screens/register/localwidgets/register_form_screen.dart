@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:nnn/screens/home/home_screen.dart';
 import 'package:nnn/screens/welcome/welcome_screen.dart';
 import 'package:nnn/screens/widgets/container_form_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
