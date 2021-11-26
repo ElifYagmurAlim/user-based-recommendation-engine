@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:nnn/screens/home/home_screen.dart';
 import 'package:nnn/screens/widgets/container_form_screen.dart';
-import 'package:nnn/states/currentUser.dart';
+import 'package:nnn/states/currentUser_state.dart';
 import 'package:provider/provider.dart';
 
 class LoginFormScreen extends StatefulWidget {
@@ -17,7 +17,8 @@ class _LoginFormScreen extends State<LoginFormScreen> {
   final TextEditingController _passwordController = TextEditingController();
 
   void _loginUser(String email, String password, BuildContext context) async {
-    CurrentUser _currentUser = Provider.of<CurrentUser>(context, listen: false);
+    CurrentUserState _currentUser =
+        Provider.of<CurrentUserState>(context, listen: false);
     try {
       String returnString = await _currentUser.loginUser(email, password);
       if (returnString == "Success") {

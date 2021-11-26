@@ -26,6 +26,7 @@ class CurrentUserState extends ChangeNotifier {
       User? firebaseUser = await _auth.currentUser;
       _currentUser.userID = firebaseUser!.uid;
       _currentUser.email = firebaseUser.email!;
+
       retVal = "Success";
     } catch (e) {
       print(e);
@@ -60,8 +61,11 @@ class CurrentUserState extends ChangeNotifier {
       _user.userID = authCredential.user!.uid;
       _user.email = email;
       _user.userName = userName;
-      VbookDatabase().createUser(_user);
-      retVal = "Success";
+      String _returnString = await VbookDatabase().createUser(_user);
+      if (_returnString == "success") {
+        retVal = "Success";
+      }
+
       User? user = FirebaseAuth.instance.currentUser;
       if (user != null && !user.emailVerified) {
         await user.sendEmailVerification();

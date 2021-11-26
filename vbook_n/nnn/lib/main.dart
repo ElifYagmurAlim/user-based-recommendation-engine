@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:nnn/root/root.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:nnn/states/currentUser.dart';
+import 'package:nnn/states/currentUser_state.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => CurrentUser(),
+      create: (context) => CurrentUserState(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         home: OurRoot(),

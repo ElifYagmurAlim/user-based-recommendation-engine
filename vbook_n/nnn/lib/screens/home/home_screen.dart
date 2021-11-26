@@ -2,7 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nnn/root/root.dart';
-import 'package:nnn/states/currentUser.dart';
+import 'package:nnn/states/currentUser_state.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -16,8 +16,8 @@ class HomeScreen extends StatelessWidget {
         child: RaisedButton(
           child: Text("Logout"),
           onPressed: () async {
-            CurrentUser currentUser =
-                Provider.of<CurrentUser>(context, listen: false);
+            CurrentUserState currentUser =
+                Provider.of<CurrentUserState>(context, listen: false);
             String returnString = await currentUser.logOut();
             if (returnString == "Success") {
               Navigator.pushAndRemoveUntil(

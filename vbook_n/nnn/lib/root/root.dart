@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nnn/screens/home/home_screen.dart';
 import 'package:nnn/screens/welcome/welcome_screen.dart';
-import 'package:nnn/states/currentUser.dart';
+import 'package:nnn/states/currentUser_state.dart';
 import 'package:provider/provider.dart';
 
 enum AuthStatus {
@@ -22,7 +22,8 @@ class _OurRootState extends State<OurRoot> {
   void didChangeDependencies() async {
     super.didChangeDependencies();
 
-    CurrentUser currentUser = Provider.of<CurrentUser>(context, listen: false);
+    CurrentUserState currentUser =
+        Provider.of<CurrentUserState>(context, listen: false);
     String returnString = await currentUser.onStartUp();
     if (returnString == "Success") {
       setState(() {

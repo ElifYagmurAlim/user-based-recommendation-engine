@@ -7,4 +7,6 @@ class CurrentUser {
 
   CurrentUser(
       {required this.userID, required this.email, required this.userName});
+
+  void add(Map map) {}
 }
