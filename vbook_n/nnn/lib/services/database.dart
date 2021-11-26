@@ -6,16 +6,18 @@ class VbookDatabase {
 
   Future<String> createUser(CurrentUser user) async {
     String retVal = "error";
+
     try {
       CollectionReference users =
           FirebaseFirestore.instance.collection('users');
-      users
-          .add({
-            'email': user.email,
-            'userName': user.userName,
-          })
-          .then((value) => print("User Added"))
-          .catchError((error) => print("Failed to add user: $error"));
+      users.add({
+        'email': user.email,
+        'userName': user.userName,
+      });
+      //       FirebaseFirestore.instance.collection('users').add({
+      //   'email': user.email,
+      //   'userName': user.userName,
+      // });
       retVal = 'success';
     } catch (e) {
       print(e);
