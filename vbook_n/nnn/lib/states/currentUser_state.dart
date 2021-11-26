@@ -2,22 +2,30 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:nnn/screens/home/home_screen.dart';
+import 'package:nnn/models/user.dart';
+import 'package:nnn/services/database.dart';
 
-class CurrentUser extends ChangeNotifier {
-  var _uid;
-  var _email;
-  String get getUid => _uid;
-  String get getEmail => _email;
+class CurrentUserState extends ChangeNotifier {
+  CurrentUser _currentUser =
+      CurrentUser(userID: userID, email: email, userName: userName);
+
+  CurrentUser get getCurrentUser => _currentUser;
+
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  static get email => null;
+
+  static get userID => null;
+
+  static get userName => null;
 
   Future<String> onStartUp() async {
     String retVal = "Error";
 
     try {
       User? firebaseUser = await _auth.currentUser;
-      _uid = firebaseUser!.uid;
-      _email = firebaseUser.email!;
+      _currentUser.userID = firebaseUser!.uid;
+      _currentUser.email = firebaseUser.email!;
       retVal = "Success";
     } catch (e) {
       print(e);
@@ -30,8 +38,7 @@ class CurrentUser extends ChangeNotifier {
 
     try {
       await _auth.signOut();
-      _uid = null;
-      _email = null;
+      _currentUser = CurrentUser(email: '', userID: '', userName: '');
       retVal = "Success";
     } catch (e) {
       print(e);
@@ -40,11 +47,20 @@ class CurrentUser extends ChangeNotifier {
     return retVal;
   }
 
-  Future<String> registerUser(String email, String password) async {
+  Future<String> registerUser(
+      //dk9
+      String email,
+      String password,
+      String userName) async {
     String retVal = "Error";
+    CurrentUser _user = CurrentUser(userID: '', email: '', userName: '');
     try {
-      await _auth.createUserWithEmailAndPassword(
-          email: email, password: password);
+      UserCredential authCredential = await _auth
+          .createUserWithEmailAndPassword(email: email, password: password);
+      _user.userID = authCredential.user!.uid;
+      _user.email = email;
+      _user.userName = userName;
+      VbookDatabase().createUser(_user);
       retVal = "Success";
       User? user = FirebaseAuth.instance.currentUser;
       if (user != null && !user.emailVerified) {
@@ -77,8 +93,8 @@ class CurrentUser extends ChangeNotifier {
           email: email, password: password);
       User? user = FirebaseAuth.instance.currentUser;
       if (authCredential.user != null && user!.emailVerified) {
-        _uid = authCredential.user!.uid;
-        _email = authCredential.user!.email!;
+        _currentUser.userID = authCredential.user!.uid;
+        _currentUser.email = authCredential.user!.email!;
         retVal = "Success";
       } else {
         retVal = 'Verify Your Email Address';
