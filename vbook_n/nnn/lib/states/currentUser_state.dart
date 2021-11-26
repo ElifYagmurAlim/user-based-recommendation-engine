@@ -17,10 +17,11 @@ class CurrentUserState extends ChangeNotifier {
 
     try {
       User? firebaseUser = await _auth.currentUser;
-      _currentUser.userID = firebaseUser!.uid;
-      _currentUser.email = firebaseUser.email!;
-
-      retVal = "Success";
+      if (firebaseUser != null) {
+        _currentUser.userID = firebaseUser.uid;
+        _currentUser.email = firebaseUser.email!;
+        retVal = "Success";
+      }
     } catch (e) {
       print(e);
     }
@@ -42,10 +43,7 @@ class CurrentUserState extends ChangeNotifier {
   }
 
   Future<String> registerUser(
-      //dk9
-      String email,
-      String password,
-      String userName) async {
+      String email, String password, String userName) async {
     String retVal = "Error";
     CurrentUser _user = CurrentUser(userID: '', email: '', userName: '');
     try {
