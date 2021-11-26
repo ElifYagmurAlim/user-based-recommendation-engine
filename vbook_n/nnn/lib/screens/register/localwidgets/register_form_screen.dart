@@ -1,9 +1,9 @@
-// ignore_for_file: prefer_const_constructors, deprecated_member_use, sized_box_for_whitespace, avoid_print
+// ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
 import 'package:nnn/screens/widgets/container_form_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:nnn/states/currentUser.dart';
+import 'package:nnn/states/currentUser_state.dart';
 import 'package:provider/provider.dart';
 
 class RegisterFormScreen extends StatefulWidget {
@@ -14,18 +14,20 @@ class RegisterFormScreen extends StatefulWidget {
 }
 
 class _RegisterFormScreen extends State<RegisterFormScreen> {
-  final TextEditingController _fullNameController = TextEditingController();
+  final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
 
   FirebaseAuth auth = FirebaseAuth.instance;
-
-  void _signUpUser(String email, String password, BuildContext context) async {
-    CurrentUser _currentUser = Provider.of<CurrentUser>(context, listen: false);
+  void _signUpUser(String email, String password, String userName,
+      BuildContext context) async {
+    CurrentUserState _currentUser =
+        Provider.of<CurrentUserState>(context, listen: false);
     try {
-      String returnString = await _currentUser.registerUser(email, password);
+      String returnString =
+          await _currentUser.registerUser(email, password, userName);
       if (returnString == "Success") {
         Navigator.pop(context);
       } else {
@@ -47,7 +49,7 @@ class _RegisterFormScreen extends State<RegisterFormScreen> {
       child: Column(
         children: <Widget>[
           TextFormField(
-            controller: _fullNameController,
+            controller: _userNameController,
             textAlignVertical: TextAlignVertical.center,
             style: TextStyle(
               color: Colors.white,
@@ -172,8 +174,8 @@ class _RegisterFormScreen extends State<RegisterFormScreen> {
             ),
             onPressed: () async {
               if (_passwordController.text == _confirmPasswordController.text) {
-                _signUpUser(
-                    _emailController.text, _passwordController.text, context);
+                _signUpUser(_emailController.text, _passwordController.text,
+                    _userNameController.text, context);
               } else {
                 Scaffold.of(context).showSnackBar(
                   SnackBar(
