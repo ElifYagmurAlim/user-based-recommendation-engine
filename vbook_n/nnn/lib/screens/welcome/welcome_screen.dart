@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, duplicate_ignore
+// ignore_for_file: prefer_const_constructors, duplicate_ignore, sized_box_for_whitespace, use_key_in_widget_constructors
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,10 +6,10 @@ import 'package:nnn/screens/login/login_screen.dart';
 import 'package:nnn/screens/register/register_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
-  const WelcomeScreen({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
+    // ignore: todo
+    // TODO: implement build
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(

@@ -1,7 +1,6 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers
 
 import 'package:flutter/material.dart';
-
 import 'localwidgets/login_form_screen.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -9,6 +8,8 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: todo
+    // TODO: implement build
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Color.fromARGB(255, 231, 76, 60),
@@ -27,11 +28,13 @@ class LoginScreen extends StatelessWidget {
           Column(
             children: <Widget>[
               Padding(padding: EdgeInsets.all(48.0)),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 120.0),
-                child: Image.asset(
-                  "assets/images/vbook_logo_w.png",
-                  fit: BoxFit.fitWidth,
+              Container(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 120.0),
+                  child: Image.asset(
+                    "assets/images/vbook_logo_w.png",
+                    fit: BoxFit.fitWidth,
+                  ),
                 ),
               ),
               SizedBox(
@@ -46,11 +49,13 @@ class LoginScreen extends StatelessWidget {
                 height: 32,
                 width: 200,
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 100.0),
-                child: Image.asset(
-                  "assets/images/vbook_w.png",
-                  fit: BoxFit.fitWidth,
+              Container(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 100.0),
+                  child: Image.asset(
+                    "assets/images/vbook_w.png",
+                    fit: BoxFit.fitWidth,
+                  ),
                 ),
               ),
               Padding(padding: EdgeInsets.all(24.0)),

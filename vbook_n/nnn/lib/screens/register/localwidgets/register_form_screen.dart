@@ -1,9 +1,10 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, deprecated_member_use, sized_box_for_whitespace, avoid_print
 
 import 'package:flutter/material.dart';
-import 'package:nnn/screens/welcome/welcome_screen.dart';
 import 'package:nnn/screens/widgets/container_form_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:nnn/states/currentUser.dart';
+import 'package:provider/provider.dart';
 
 class RegisterFormScreen extends StatefulWidget {
   const RegisterFormScreen({Key? key}) : super(key: key);
@@ -20,6 +21,25 @@ class _RegisterFormScreen extends State<RegisterFormScreen> {
       TextEditingController();
 
   FirebaseAuth auth = FirebaseAuth.instance;
+
+  void _signUpUser(String email, String password, BuildContext context) async {
+    CurrentUser _currentUser = Provider.of<CurrentUser>(context, listen: false);
+    try {
+      String returnString = await _currentUser.registerUser(email, password);
+      if (returnString == "Success") {
+        Navigator.pop(context);
+      } else {
+        Scaffold.of(context).showSnackBar(
+          SnackBar(
+            content: Text(returnString),
+            duration: Duration(seconds: 2),
+          ),
+        );
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -151,43 +171,16 @@ class _RegisterFormScreen extends State<RegisterFormScreen> {
                   ]),
             ),
             onPressed: () async {
-              try {
-                UserCredential userCredential = await FirebaseAuth.instance
-                    .createUserWithEmailAndPassword(
-                        email: _emailController.text,
-                        password: _passwordController.text);
-
-                User? user = FirebaseAuth.instance.currentUser;
-
-                if (user != null && !user.emailVerified) {
-                  await user.sendEmailVerification();
-                  final snackBar = SnackBar(
-                      content: Text(
-                          'Registeration Success! Please verify your email address to continue'));
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => WelcomeScreen()),
-                  );
-                } else {
-                  final snackBar = SnackBar(
-                      content: Text(
-                          'Account Creation Failed. Something Went Wrong.'));
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                }
-              } on FirebaseAuthException catch (e) {
-                if (e.code == 'weak-password') {
-                  final snackBar = SnackBar(
-                      content: Text('The password provided is too weak.'));
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                } else if (e.code == 'email-already-in-use') {
-                  final snackBar = SnackBar(
-                      content:
-                          Text('The account already exists for that email.'));
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                }
-              } catch (e) {
-                print(e);
+              if (_passwordController.text == _confirmPasswordController.text) {
+                _signUpUser(
+                    _emailController.text, _passwordController.text, context);
+              } else {
+                Scaffold.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text("Passwords do not match"),
+                    duration: Duration(seconds: 2),
+                  ),
+                );
               }
             },
           ),

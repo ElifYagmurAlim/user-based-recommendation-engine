@@ -1,9 +1,9 @@
-// ignore_for_file: prefer_const_constructors
-
-import 'package:firebase_auth/firebase_auth.dart';
+// ignore_for_file: prefer_const_constructors, deprecated_member_use, sized_box_for_whitespace, avoid_print
 import 'package:flutter/material.dart';
 import 'package:nnn/screens/home/home_screen.dart';
 import 'package:nnn/screens/widgets/container_form_screen.dart';
+import 'package:nnn/states/currentUser.dart';
+import 'package:provider/provider.dart';
 
 class LoginFormScreen extends StatefulWidget {
   const LoginFormScreen({Key? key}) : super(key: key);
@@ -15,6 +15,31 @@ class LoginFormScreen extends StatefulWidget {
 class _LoginFormScreen extends State<LoginFormScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  void _loginUser(String email, String password, BuildContext context) async {
+    CurrentUser _currentUser = Provider.of<CurrentUser>(context, listen: false);
+    try {
+      String returnString = await _currentUser.loginUser(email, password);
+      if (returnString == "Success") {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => HomeScreen(),
+          ),
+          (route) => false,
+        );
+      } else {
+        Scaffold.of(context).showSnackBar(
+          SnackBar(
+            content: Text(returnString),
+            duration: Duration(seconds: 2),
+          ),
+        );
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -95,33 +120,8 @@ class _LoginFormScreen extends State<LoginFormScreen> {
                   ]),
             ),
             onPressed: () async {
-              try {
-                UserCredential userCredential = await FirebaseAuth.instance
-                    .signInWithEmailAndPassword(
-                        email: _emailController.text,
-                        password: _passwordController.text);
-
-                User? user = FirebaseAuth.instance.currentUser;
-
-                if (user != null) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => HomeScreen()),
-                  );
-                }
-              } on FirebaseAuthException catch (e) {
-                if (e.code == 'user-not-found') {
-                  final snackBar =
-                      SnackBar(content: Text('No user found for that email.'));
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                } else if (e.code == 'wrong-password') {
-                  final snackBar = SnackBar(
-                      content: Text('Wrong password provided for that user.'));
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                }
-              } catch (e) {
-                print(e);
-              }
+              _loginUser(
+                  _emailController.text, _passwordController.text, context);
             },
           ),
         ],
