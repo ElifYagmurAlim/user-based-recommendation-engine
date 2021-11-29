@@ -54,9 +54,9 @@ class _HomeScreenState extends State<HomeScreen> {
               label: 'Search',
               activeIcon: Icon(Icons.search)),
           BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle_outlined),
+              icon: Icon(Icons.book_outlined),
               label: 'Your Library',
-              activeIcon: Icon(Icons.account_circle)),
+              activeIcon: Icon(Icons.book)),
           BottomNavigationBarItem(
               icon: Icon(Icons.account_circle_outlined),
               label: 'Profile',
