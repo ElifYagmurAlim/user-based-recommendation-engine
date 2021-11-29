@@ -5,31 +5,61 @@ import 'package:nnn/root/root.dart';
 import 'package:nnn/states/currentUser_state.dart';
 import 'package:provider/provider.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int _selectedIndex = 0;
+  PageController pageController = PageController();
+
+  void onTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+    pageController.jumpToPage(index);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Home"),
+      body: PageView(
+        controller: pageController,
+        children: [
+          Container(
+            color: Colors.red,
+          ),
+          Container(
+            color: Colors.green,
+          ),
+          Container(
+            color: Colors.blue,
+          )
+        ],
       ),
-      body: Center(
-        child: RaisedButton(
-          child: Text("Logout"),
-          onPressed: () async {
-            CurrentUserState currentUser =
-                Provider.of<CurrentUserState>(context, listen: false);
-            String returnString = await currentUser.logOut();
-            if (returnString == "Success") {
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => OurRoot(),
-                ),
-                (route) => false,
-              );
-            }
-          },
-        ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+              icon: Icon(Icons.search_outlined),
+              label: 'Search',
+              activeIcon: Icon(Icons.search)),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.home_outlined),
+              label: ('Home'),
+              activeIcon: Icon(Icons.home)),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.account_circle_outlined),
+              label: 'Profile',
+              activeIcon: Icon(Icons.account_circle))
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.grey[900],
+        unselectedItemColor: Colors.grey,
+        selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
+        onTap: onTapped,
       ),
     );
   }

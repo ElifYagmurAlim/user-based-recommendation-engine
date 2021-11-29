@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => CurrentUserState(),
       child: MaterialApp(
+        //theme: ThemeData.dark(),
         debugShowCheckedModeBanner: false,
         home: OurRoot(),
       ),
