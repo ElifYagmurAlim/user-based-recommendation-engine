@@ -37,19 +37,26 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           Container(
             color: Colors.blue,
+          ),
+          Container(
+            color: Colors.orange,
           )
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
+              icon: Icon(Icons.home_outlined),
+              label: ('Home'),
+              activeIcon: Icon(Icons.home)),
+          BottomNavigationBarItem(
               icon: Icon(Icons.search_outlined),
               label: 'Search',
               activeIcon: Icon(Icons.search)),
           BottomNavigationBarItem(
-              icon: Icon(Icons.home_outlined),
-              label: ('Home'),
-              activeIcon: Icon(Icons.home)),
+              icon: Icon(Icons.account_circle_outlined),
+              label: 'Your Library',
+              activeIcon: Icon(Icons.account_circle)),
           BottomNavigationBarItem(
               icon: Icon(Icons.account_circle_outlined),
               label: 'Profile',
