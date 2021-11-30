@@ -1,9 +1,10 @@
 // ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, deprecated_member_use
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:nnn/root/root.dart';
-import 'package:nnn/states/currentUser_state.dart';
-import 'package:provider/provider.dart';
+import 'package:nnn/screens/home/localwidgets/home_form_screen.dart';
+import 'package:nnn/screens/home/localwidgets/library_form_screen.dart';
+import 'package:nnn/screens/home/localwidgets/profile_form_screen.dart';
+import 'package:nnn/screens/home/localwidgets/search_form_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -31,15 +32,19 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           Container(
             color: Colors.red,
+            child: HomeFormScreen(),
           ),
           Container(
             color: Colors.green,
+            child: SearchFormScreen(),
           ),
           Container(
             color: Colors.blue,
+            child: LibraryFormScreen(),
           ),
           Container(
             color: Colors.orange,
+            child: ProfileFormScreen(),
           )
         ],
       ),
