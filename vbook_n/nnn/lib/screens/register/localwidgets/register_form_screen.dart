@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:nnn/screens/welcome/welcome_screen.dart';
 import 'package:nnn/screens/widgets/container_form_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:nnn/states/currentUser_state.dart';
@@ -29,7 +30,10 @@ class _RegisterFormScreen extends State<RegisterFormScreen> {
       String returnString =
           await _currentUser.registerUser(email, password, userName);
       if (returnString == "Success") {
-        Navigator.pop(context);
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => WelcomeScreen()),
+        );
       } else {
         Scaffold.of(context).showSnackBar(
           SnackBar(

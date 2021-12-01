@@ -1,5 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:nnn/screens/home/localwidgets/appbar_widget.dart';
 import 'package:nnn/screens/home/localwidgets/profile_edit_form_screen.dart';
 
 class ProfileFormScreen extends StatefulWidget {
@@ -17,6 +17,8 @@ class _ProfileFormScreenState extends State<ProfileFormScreen> {
 
   @override
   Widget build(BuildContext context) {
+    CollectionReference users = FirebaseFirestore.instance.collection('users');
+
     return Scaffold(
       //appBar: buildAppBar(context),
       body: ListView(

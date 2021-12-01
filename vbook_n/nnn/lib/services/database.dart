@@ -13,6 +13,7 @@ class VbookDatabase {
       users.add({
         'email': user.email,
         'userName': user.userName,
+        'userId': user.userID,
       });
       //       FirebaseFirestore.instance.collection('users').add({
       //   'email': user.email,
