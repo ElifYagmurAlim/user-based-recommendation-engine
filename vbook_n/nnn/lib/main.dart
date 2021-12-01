@@ -1,8 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:nnn/root/root.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:nnn/services/analytic_service.dart';
 import 'package:nnn/states/currentUser_state.dart';
 import 'package:provider/provider.dart';
 
@@ -13,6 +16,10 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
+  static FirebaseAnalytics analytics = FirebaseAnalytics();
+  static FirebaseAnalyticsObserver observer =
+      FirebaseAnalyticsObserver(analytics: analytics);
+
   const MyApp({Key? key}) : super(key: key);
   // This widget is the root of your application.
   @override
@@ -22,6 +29,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         //theme: ThemeData.dark(),
         debugShowCheckedModeBanner: false,
+        navigatorObservers: <NavigatorObserver>[observer],
         home: OurRoot(),
       ),
     );

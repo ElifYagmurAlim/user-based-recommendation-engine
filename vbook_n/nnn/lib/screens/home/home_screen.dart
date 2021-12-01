@@ -7,7 +7,7 @@ import 'package:nnn/screens/home/localwidgets/profile_form_screen.dart';
 import 'package:nnn/screens/home/localwidgets/search_form_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({Key? key, analytics}) : super(key: key);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
