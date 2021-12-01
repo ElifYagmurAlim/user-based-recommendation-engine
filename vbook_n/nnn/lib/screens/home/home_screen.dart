@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:nnn/screens/home/localwidgets/home_form_screen.dart';
 import 'package:nnn/screens/home/localwidgets/library_form_screen.dart';
 import 'package:nnn/screens/home/localwidgets/profile_form_screen.dart';
-import 'package:nnn/screens/home/localwidgets/search_form_screen.dart';
+import 'package:nnn/screens/home/localwidgets/recommendation_form_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key, analytics}) : super(key: key);
@@ -36,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           Container(
             color: Colors.green,
-            child: SearchFormScreen(),
+            child: RecommendationFormScreen(),
           ),
           Container(
             color: Colors.blue,
@@ -55,9 +55,9 @@ class _HomeScreenState extends State<HomeScreen> {
               label: ('Home'),
               activeIcon: Icon(Icons.home)),
           BottomNavigationBarItem(
-              icon: Icon(Icons.search_outlined),
-              label: 'Search',
-              activeIcon: Icon(Icons.search)),
+              icon: Icon(Icons.star_border_outlined),
+              label: 'Recommendation',
+              activeIcon: Icon(Icons.star)),
           BottomNavigationBarItem(
               icon: Icon(Icons.book_outlined),
               label: 'Your Library',

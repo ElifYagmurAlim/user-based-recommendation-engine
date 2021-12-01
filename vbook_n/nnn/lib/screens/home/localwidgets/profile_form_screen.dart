@@ -1,11 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:nnn/root/root.dart';
-import 'package:nnn/screens/welcome/welcome_screen.dart';
-import 'package:nnn/screens/widgets/container_form_screen.dart';
-import 'package:nnn/states/currentUser_state.dart';
-import 'package:provider/provider.dart';
+import 'package:nnn/screens/home/localwidgets/profilewidgets/change_password_form_screen.dart';
+import 'package:nnn/screens/home/localwidgets/profilewidgets/change_username_form_screen.dart';
 
 class ProfileFormScreen extends StatefulWidget {
   const ProfileFormScreen({
@@ -20,163 +17,140 @@ class _ProfileFormScreenState extends State<ProfileFormScreen> {
   TextEditingController userNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmpasswordController = TextEditingController();
   final userCollection = FirebaseFirestore.instance.collection('users');
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  void initState() {
-    super.initState();
-  }
-
-  Future<void> updateUser() {
-    return userCollection
+  Future<String> updateUser() async {
+    if (passwordController.text == confirmpasswordController.text) {
+      await FirebaseAuth.instance.currentUser!
+          .updatePassword(passwordController.text);
+    }
+    userCollection
         .doc(_auth.currentUser!.uid)
-        .update({
-          'email': emailController.text,
-          'userName': userNameController.text
-        })
+        .update({'userName': userNameController.text})
         .then((value) => print("User Updated"))
         .catchError((error) => print("Failed to update user: $error"));
+    return 'Success';
   }
 
   @override
   Widget build(BuildContext context) {
-    final FirebaseAuth _auth = FirebaseAuth.instance;
-    return ContainerFormScreen(
-      child: Column(
-        children: <Widget>[
-          SizedBox(
-            height: 10.0,
-          ),
-          TextFormField(
-            controller: userNameController,
-            textAlignVertical: TextAlignVertical.center,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-            ),
-            decoration: InputDecoration(
-              enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.white),
-              ),
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey.shade700),
-              ),
-              prefixIcon: Icon(
-                Icons.person_outline,
-                color: Colors.black,
-              ),
-              hintText: "Username",
-              hintStyle: TextStyle(fontSize: 16.0, color: Colors.black),
-            ),
-          ),
-          SizedBox(
-            height: 8.0,
-          ),
-          TextFormField(
-            controller: emailController,
-            textAlignVertical: TextAlignVertical.center,
-            style: TextStyle(
-              color: Colors.pink,
-              fontSize: 16,
-            ),
-            decoration: InputDecoration(
-              enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.black),
-              ),
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey.shade700),
-              ),
-              prefixIcon: Icon(
-                Icons.alternate_email,
-                color: Colors.black,
-              ),
-              hintText: "Email",
-              hintStyle: TextStyle(fontSize: 16.0, color: Colors.black),
-            ),
-          ),
-          SizedBox(
-            height: 8.0,
-          ),
-          TextFormField(
-            controller: passwordController,
-            textAlignVertical: TextAlignVertical.center,
-            style: TextStyle(
-              color: Colors.pink,
-              fontSize: 16,
-            ),
-            decoration: InputDecoration(
-              enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.white),
-              ),
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey.shade700),
-              ),
-              prefixIcon: Icon(
-                Icons.lock_clock_outlined,
-                color: Colors.black,
-              ),
-              hintText: "Password",
-              hintStyle: TextStyle(fontSize: 16.0, color: Colors.black),
-            ),
-            obscureText: true,
-          ),
-          SizedBox(
-            height: 8.0,
-          ),
-          MaterialButton(
-            color: Colors.white,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-            child: Container(
-              height: 45.0,
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const <Widget>[
-                    SizedBox(
-                      child: Text(
-                        "Update",
-                        style: TextStyle(
-                            fontSize: 16,
-                            color: Color.fromARGB(255, 255, 138, 57),
-                            fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ]),
-            ),
-            onPressed: () async {
-              await FirebaseAuth.instance.currentUser!
-                  .updatePassword(passwordController.text);
-              updateUser();
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => WelcomeScreen(),
+    return Scaffold(
+      backgroundColor: Colors.grey.shade200,
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Card(
+              elevation: 8.0,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0)),
+              margin: const EdgeInsets.only(top: 32.0, bottom: 8.0),
+              color: Colors.orange,
+              child: ListTile(
+                onTap: () {
+                  //open edit profile
+                },
+                title: Text(
+                  "John Doe",
+                  style: TextStyle(fontSize: 18, color: Colors.white),
                 ),
-                (route) => false,
-              );
-// Create a credential
-            },
-          ),
-          RaisedButton(
-            child: Text("Logout"),
-            onPressed: () async {
-              CurrentUserState currentUser =
-                  Provider.of<CurrentUserState>(context, listen: false);
-              String returnString = await currentUser.logOut();
-              if (returnString == "Success") {
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => OurRoot(),
+              ),
+            ),
+            SizedBox(
+              height: 10.0,
+            ),
+            Card(
+              elevation: 4.0,
+              margin: const EdgeInsets.symmetric(horizontal: 32.0),
+              color: Colors.white,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0)),
+              child: Column(
+                children: <Widget>[
+                  ListTile(
+                    leading: Icon(Icons.account_circle_outlined,
+                        color: Colors.orange),
+                    title: Text("Change User Name"),
+                    trailing: Icon(Icons.keyboard_arrow_right),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ChangeUsernameForm()),
+                      );
+                    },
                   ),
-                  (route) => false,
-                );
-              }
-            },
-          ),
-        ],
+                  Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 8.0),
+                    width: double.infinity,
+                    height: 1.0,
+                    color: Colors.grey.shade400,
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.lock_outline, color: Colors.orange),
+                    title: Text("Change Password"),
+                    trailing: Icon(Icons.keyboard_arrow_right),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ChangePasswordForm()),
+                      );
+                    },
+                  )
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 20.0,
+            ),
+            Padding(
+                padding: EdgeInsets.symmetric(horizontal: 32.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    Text(
+                      "Stats",
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam consequat dignissim rutrum. Nullam ultrices lorem et accumsan vulputate. Pellentesque ut efficitur massa. Sed et lacinia erat, eget iaculis ante. Duis a bibendum ante, quis volutpat orci. Aliquam id pulvinar ligula, vel feugiat ex. Nulla euismod sapien vehicula nisl commodo tincidunt. Proin mi mauris, suscipit eget luctus ac, mattis sit amet nisl. Maecenas blandit massa id diam cursus, in vehicula quam pellentesque."),
+                  ],
+                )),
+            SizedBox(
+              height: 10.0,
+            ),
+            SizedBox(
+              height: 20.0,
+            ),
+            Card(
+              elevation: 4.0,
+              margin: const EdgeInsets.symmetric(horizontal: 32.0),
+              color: Colors.white,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0)),
+              child: Column(
+                children: <Widget>[
+                  ListTile(
+                    leading: Icon(Icons.delete_outline, color: Colors.orange),
+                    title: Text("Delete Account"),
+                    trailing: Icon(Icons.keyboard_arrow_right),
+                    onTap: () {},
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 20.0,
+            ),
+          ],
+        ),
       ),
     );
   }

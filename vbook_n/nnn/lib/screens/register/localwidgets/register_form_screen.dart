@@ -30,9 +30,12 @@ class _RegisterFormScreen extends State<RegisterFormScreen> {
       String returnString =
           await _currentUser.registerUser(email, password, userName);
       if (returnString == "Success") {
-        Navigator.push(
+        Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => WelcomeScreen()),
+          MaterialPageRoute(
+            builder: (context) => WelcomeScreen(),
+          ),
+          (route) => false,
         );
       } else {
         Scaffold.of(context).showSnackBar(
