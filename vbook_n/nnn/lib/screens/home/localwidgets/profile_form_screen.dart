@@ -21,19 +21,6 @@ class _ProfileFormScreenState extends State<ProfileFormScreen> {
   final userCollection = FirebaseFirestore.instance.collection('users');
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  Future<String> updateUser() async {
-    if (passwordController.text == confirmpasswordController.text) {
-      await FirebaseAuth.instance.currentUser!
-          .updatePassword(passwordController.text);
-    }
-    userCollection
-        .doc(_auth.currentUser!.uid)
-        .update({'userName': userNameController.text})
-        .then((value) => print("User Updated"))
-        .catchError((error) => print("Failed to update user: $error"));
-    return 'Success';
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,7 +51,7 @@ class _ProfileFormScreenState extends State<ProfileFormScreen> {
             ),
             Card(
               elevation: 4.0,
-              margin: const EdgeInsets.symmetric(horizontal: 32.0),
+              margin: const EdgeInsets.symmetric(horizontal: 18.0),
               color: Colors.white,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0)),
@@ -73,7 +60,7 @@ class _ProfileFormScreenState extends State<ProfileFormScreen> {
                   ListTile(
                     leading: Icon(Icons.account_circle_outlined,
                         color: Colors.orange),
-                    title: Text("Change User Name"),
+                    title: Text("Change Username"),
                     trailing: Icon(Icons.keyboard_arrow_right),
                     onTap: () {
                       Navigator.push(
@@ -108,7 +95,7 @@ class _ProfileFormScreenState extends State<ProfileFormScreen> {
               height: 20.0,
             ),
             Padding(
-                padding: EdgeInsets.symmetric(horizontal: 32.0),
+                padding: EdgeInsets.symmetric(horizontal: 18.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.max,
@@ -131,7 +118,7 @@ class _ProfileFormScreenState extends State<ProfileFormScreen> {
             ),
             Card(
               elevation: 4.0,
-              margin: const EdgeInsets.symmetric(horizontal: 32.0),
+              margin: const EdgeInsets.symmetric(horizontal: 18.0),
               color: Colors.white,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0)),

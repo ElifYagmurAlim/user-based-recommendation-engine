@@ -28,7 +28,7 @@ class _ChangeUsernameFormState extends State<ChangeUsernameForm> {
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(),
-        title: Text('Update User Name'),
+        title: Text('Update Username'),
         backgroundColor: Colors.orange,
       ),
       body: ContainerFormScreen(
@@ -73,7 +73,7 @@ class _ChangeUsernameFormState extends State<ChangeUsernameForm> {
                       children: const <Widget>[
                         SizedBox(
                           child: Text(
-                            "Update",
+                            "Change Username",
                             style: TextStyle(
                                 fontSize: 16,
                                 color: Color.fromARGB(255, 255, 138, 57),
