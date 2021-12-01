@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:nnn/root/root.dart';
 import 'package:nnn/states/currentUser_state.dart';

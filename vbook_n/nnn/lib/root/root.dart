@@ -1,3 +1,5 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:nnn/screens/home/home_screen.dart';
 import 'package:nnn/screens/welcome/welcome_screen.dart';
@@ -10,14 +12,13 @@ enum AuthStatus {
 }
 
 class OurRoot extends StatefulWidget {
-  const OurRoot({Key? key}) : super(key: key);
-
   @override
   _OurRootState createState() => _OurRootState();
 }
 
 class _OurRootState extends State<OurRoot> {
   AuthStatus authStatus = AuthStatus.notSignedIn;
+
   @override
   void didChangeDependencies() async {
     super.didChangeDependencies();
