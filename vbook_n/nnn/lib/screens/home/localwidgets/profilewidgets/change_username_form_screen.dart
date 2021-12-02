@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:nnn/screens/home/localwidgets/profile_form_screen.dart';
 import 'package:nnn/screens/widgets/container_form_screen.dart';
+import 'package:nnn/services/database.dart';
 
 class ChangeUsernameForm extends StatefulWidget {
   const ChangeUsernameForm({Key? key}) : super(key: key);
@@ -14,6 +16,24 @@ class _ChangeUsernameFormState extends State<ChangeUsernameForm> {
   TextEditingController userNameController = TextEditingController();
   final userCollection = FirebaseFirestore.instance.collection('users');
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  @override
+  void initState() {
+    super.initState();
+    fechData();
+  }
+
+  fechData() async {
+    dynamic result = await VbookDatabase().getData();
+    if (result == null) {
+      print("error");
+    } else {
+      setState(() {
+        //COK ONEMLI
+        userNameController.text = result.toString();
+      });
+    }
+  }
 
   Future<void> updateUser() {
     return userCollection
@@ -53,7 +73,7 @@ class _ChangeUsernameFormState extends State<ChangeUsernameForm> {
                   Icons.person_outline,
                   color: Colors.grey.shade800,
                 ),
-                hintText: "Username",
+                hintText: userNameController.text,
                 hintStyle:
                     TextStyle(fontSize: 16.0, color: Colors.grey.shade800),
               ),
@@ -85,6 +105,13 @@ class _ChangeUsernameFormState extends State<ChangeUsernameForm> {
                 ),
                 onPressed: () async {
                   updateUser();
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ProfileFormScreen(),
+                    ),
+                    (route) => false,
+                  );
                 }),
           ],
         ),

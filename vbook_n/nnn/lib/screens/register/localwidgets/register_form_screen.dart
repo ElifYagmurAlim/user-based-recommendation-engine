@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:nnn/screens/home/localwidgets/home_form_screen.dart';
 import 'package:nnn/screens/welcome/welcome_screen.dart';
 import 'package:nnn/screens/widgets/container_form_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -30,12 +31,16 @@ class _RegisterFormScreen extends State<RegisterFormScreen> {
       String returnString =
           await _currentUser.registerUser(email, password, userName);
       if (returnString == "Success") {
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (context) => WelcomeScreen(),
+        String message =
+            'Registeration Success! Please verify your email address to continue';
+        Scaffold.of(context).showSnackBar(
+          SnackBar(
+            content: Text(message),
           ),
-          (route) => false,
+        );
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => WelcomeScreen()),
         );
       } else {
         Scaffold.of(context).showSnackBar(

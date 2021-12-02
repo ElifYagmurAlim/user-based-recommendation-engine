@@ -14,7 +14,6 @@ class ChangePasswordForm extends StatefulWidget {
 }
 
 class _ChangePasswordFormState extends State<ChangePasswordForm> {
-  TextEditingController oldPasswordController = TextEditingController();
   TextEditingController newPasswordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
 
@@ -30,32 +29,6 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            TextFormField(
-              controller: oldPasswordController,
-              textAlignVertical: TextAlignVertical.center,
-              style: TextStyle(
-                color: Colors.grey.shade800,
-                fontSize: 16,
-              ),
-              decoration: InputDecoration(
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey.shade800),
-                ),
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey.shade800),
-                ),
-                prefixIcon: Icon(
-                  Icons.vpn_key_outlined,
-                  color: Colors.grey.shade800,
-                ),
-                hintText: "Old Password",
-                hintStyle:
-                    TextStyle(fontSize: 16.0, color: Colors.grey.shade800),
-              ),
-            ),
-            SizedBox(
-              height: 16.0,
-            ),
             TextFormField(
               controller: newPasswordController,
               textAlignVertical: TextAlignVertical.center,

@@ -53,17 +53,13 @@ class CurrentUserState extends ChangeNotifier {
       _user.email = email;
       _user.userName = userName;
       String _returnString = await VbookDatabase().createUser(_user);
-      if (_returnString == "success") {
+      if (_returnString == "Success") {
         retVal = "Success";
       }
 
       User? user = FirebaseAuth.instance.currentUser;
       if (user != null && !user.emailVerified) {
         await user.sendEmailVerification();
-        retVal =
-            'Registeration Success! Please verify your email address to continue';
-      } else {
-        retVal = 'Account Creation Failed. Something Went Wrong.';
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'invalid-email') {
@@ -76,7 +72,7 @@ class CurrentUserState extends ChangeNotifier {
         retVal = e.code;
       }
     } catch (e) {
-      print(e);
+      retVal = e.toString();
     }
     return retVal;
   }

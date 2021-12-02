@@ -5,6 +5,7 @@ import 'package:nnn/screens/home/localwidgets/home_form_screen.dart';
 import 'package:nnn/screens/home/localwidgets/library_form_screen.dart';
 import 'package:nnn/screens/home/localwidgets/profile_form_screen.dart';
 import 'package:nnn/screens/home/localwidgets/recommendation_form_screen.dart';
+import 'package:nnn/services/database.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key, analytics}) : super(key: key);
@@ -16,12 +17,23 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
   PageController pageController = PageController();
+  String username = ' ';
 
   void onTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
     pageController.jumpToPage(index);
+  }
+
+  Future<String> fechData() async {
+    dynamic result = await VbookDatabase().getData();
+    if (result == null) {
+      print("error");
+    } else {
+      username = result.toString();
+    }
+    return username;
   }
 
   @override

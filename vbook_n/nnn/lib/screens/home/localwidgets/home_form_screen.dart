@@ -17,20 +17,7 @@ class _HomeFormScreenState extends State<HomeFormScreen> {
     return Container(
       child: RaisedButton(
         child: Text("asd"),
-        onPressed: () async {
-          CurrentUserState currentUser =
-              Provider.of<CurrentUserState>(context, listen: false);
-          String returnString = await currentUser.logOut();
-          if (returnString == "Success") {
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(
-                builder: (context) => OurRoot(),
-              ),
-              (route) => false,
-            );
-          }
-        },
+        onPressed: () async {},
       ),
     );
   }
