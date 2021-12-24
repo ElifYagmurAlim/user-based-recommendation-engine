@@ -1,7 +1,8 @@
-import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_database/ui/firebase_animated_list.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
-import 'package:nnn/models/book.dart';
+import 'package:nnn/root/root.dart';
+import 'package:nnn/states/currentUser_state.dart';
+import 'package:provider/provider.dart';
 
 class HomeFormScreen extends StatefulWidget {
   const HomeFormScreen({Key? key}) : super(key: key);
@@ -11,8 +12,24 @@ class HomeFormScreen extends StatefulWidget {
 }
 
 class _HomeFormScreenState extends State<HomeFormScreen> {
+<<<<<<< HEAD
   DatabaseReference dref = FirebaseDatabase.instance.ref();
-  fechData() async {}
+  List<Book> books = [];
+  fechData(DataSnapshot x) async {
+//     DatabaseReference ref = FirebaseDatabase.instance.ref();
+    books.add(Book(
+        authors: x.child("authors").value.toString(),
+        average_rating: x.child("average_rating").value.toString(),
+        bookID: x.child("bookID").value.toString(),
+        isbn: x.child("isbn").value.toString(),
+        language_code: x.child("language_code").value.toString(),
+        num_pages: x.child("num_pages").value.toString(),
+        publication_date: x.child("publication_date").value.toString(),
+        publisher: x.child("publisher").value.toString(),
+        ratings_count: x.child("ratings_count").value.toString(),
+        text_reviews_count: x.child("text_reviews_count").value.toString(),
+        title: x.child("title").value.toString()));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,14 +39,23 @@ class _HomeFormScreenState extends State<HomeFormScreen> {
         query: dref,
         itemBuilder: (BuildContext context, DataSnapshot snapshot,
             Animation<double> animation, int index) {
-          var x = snapshot.value.toString();
-          fechData();
-
+          DataSnapshot x = snapshot;
+          fechData(x);
+          print(books[0].title.toString());
           return ListTile(
             subtitle: Text(snapshot.value.toString()),
           );
         },
       )),
+=======
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: RaisedButton(
+        child: Text("asd"),
+        onPressed: () async {},
+      ),
+>>>>>>> parent of d94ccb5 (.)
     );
   }
 }
