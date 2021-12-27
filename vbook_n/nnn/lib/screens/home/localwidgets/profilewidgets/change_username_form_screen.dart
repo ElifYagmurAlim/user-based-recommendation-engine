@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:nnn/screens/home/home_screen.dart';
 import 'package:nnn/screens/home/localwidgets/profile_form_screen.dart';
 import 'package:nnn/screens/widgets/container_form_screen.dart';
 import 'package:nnn/services/database.dart';
@@ -108,7 +109,7 @@ class _ChangeUsernameFormState extends State<ChangeUsernameForm> {
                   Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => ProfileFormScreen(),
+                      builder: (context) => HomeScreen(),
                     ),
                     (route) => false,
                   );
