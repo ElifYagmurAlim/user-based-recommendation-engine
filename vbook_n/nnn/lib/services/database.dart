@@ -17,7 +17,7 @@ class VbookDatabase {
         'userID': _auth.currentUser!.uid,
         'email': user.email,
         'userName': user.userName,
-        'userLibrary': ratedBooks,
+        //'userLibrary': ratedBooks,
       }).then((value) => print("Success!"));
       retVal = "Success";
       //       FirebaseFirestore.instance.collection('users').add({
