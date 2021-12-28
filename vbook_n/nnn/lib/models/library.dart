@@ -1,5 +1,7 @@
 import 'package:nnn/models/books.dart';
 
-class UserLibrary {
-  late List<Book> books;
+class RatedBook {
+  late Book book;
+  late double rate;
+  late String userID;
 }

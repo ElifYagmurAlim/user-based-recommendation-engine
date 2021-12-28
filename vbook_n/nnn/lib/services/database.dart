@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:nnn/models/books.dart';
+import 'package:nnn/models/library.dart';
 import 'package:nnn/models/user.dart';
 
 class VbookDatabase {
@@ -10,13 +11,13 @@ class VbookDatabase {
       FirebaseFirestore.instance.collection('users');
   Future<String> createUser(CurrentUser user) async {
     String retVal = "error";
-    List<Book> userLib = [];
+    List<RatedBook> ratedBooks = [];
     try {
       userCollection.doc(_auth.currentUser!.uid).set({
         'userID': _auth.currentUser!.uid,
         'email': user.email,
         'userName': user.userName,
-        'userLibrary': userLib,
+        'userLibrary': ratedBooks,
       }).then((value) => print("Success!"));
       retVal = "Success";
       //       FirebaseFirestore.instance.collection('users').add({
