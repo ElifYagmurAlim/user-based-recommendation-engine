@@ -256,6 +256,7 @@ class _BookDetailsFormState extends State<BookDetailsForm> {
                             height: 60,
                           ),
                           RatingBar.builder(
+                            glowColor: Colors.orange,
                             initialRating: 2.5,
                             minRating: 0,
                             direction: Axis.horizontal,
@@ -271,10 +272,10 @@ class _BookDetailsFormState extends State<BookDetailsForm> {
                             },
                           ),
                           SizedBox(
-                            height: 8,
+                            height: 20,
                           ),
                           Text(
-                            updateRate.toString(),
+                            "Rating: " + updateRate.toString(),
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ],
