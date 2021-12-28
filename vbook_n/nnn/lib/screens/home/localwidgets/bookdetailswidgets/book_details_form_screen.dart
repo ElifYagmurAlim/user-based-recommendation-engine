@@ -287,7 +287,7 @@ class _BookDetailsFormState extends State<BookDetailsForm> {
                       padding: EdgeInsets.symmetric(horizontal: 18),
                       child: TextButton(
                         onPressed: () {
-                          showToast();
+                          //updateRate
                         },
                         style: TextButton.styleFrom(
                             backgroundColor: Colors.green,
