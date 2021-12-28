@@ -10,6 +10,6 @@ class CurrentUser {
     required this.userID,
     required this.email,
     required this.userName,
-    // required this.userLibrary
+    //required this.userLibrary
   });
 }
