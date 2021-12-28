@@ -114,28 +114,6 @@ class _ProfileFormScreenState extends State<ProfileFormScreen> {
             SizedBox(
               height: 20.0,
             ),
-            Padding(
-                padding: EdgeInsets.symmetric(horizontal: 18.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    Text(
-                      "Stats",
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam consequat dignissim rutrum. Nullam ultrices lorem et accumsan vulputate. Pellentesque ut efficitur massa. Sed et lacinia erat, eget iaculis ante. Duis a bibendum ante, quis volutpat orci. Aliquam id pulvinar ligula, vel feugiat ex. Nulla euismod sapien vehicula nisl commodo tincidunt. Proin mi mauris, suscipit eget luctus ac, mattis sit amet nisl. Maecenas blandit massa id diam cursus, in vehicula quam pellentesque."),
-                  ],
-                )),
-            SizedBox(
-              height: 10.0,
-            ),
-            SizedBox(
-              height: 20.0,
-            ),
             Card(
               elevation: 4.0,
               margin: const EdgeInsets.symmetric(horizontal: 18.0),
