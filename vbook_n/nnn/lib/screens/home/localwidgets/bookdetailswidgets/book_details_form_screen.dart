@@ -1,5 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:nnn/models/books.dart';
+import 'package:nnn/models/rating.dart';
+import 'package:nnn/screens/home/home_screen.dart';
+import 'package:nnn/screens/home/localwidgets/home_form_screen.dart';
+import 'package:nnn/services/database.dart';
 
 class BookDetailsForm extends StatefulWidget {
   const BookDetailsForm(
@@ -13,7 +19,8 @@ class BookDetailsForm extends StatefulWidget {
       required this.publisher,
       required this.bookTitle,
       required this.ratingsCount,
-      required this.textReviewsCount})
+      required this.textReviewsCount,
+      required this.isbn13})
       : super(key: key);
   final bookId;
   final authors;
@@ -25,6 +32,7 @@ class BookDetailsForm extends StatefulWidget {
   final bookTitle;
   final ratingsCount;
   final textReviewsCount;
+  final isbn13;
 
   @override
   _BookDetailsFormState createState() => _BookDetailsFormState();
@@ -33,6 +41,17 @@ class BookDetailsForm extends StatefulWidget {
 class _BookDetailsFormState extends State<BookDetailsForm> {
   bool _isVisible = true;
   double updateRate = 2.5;
+  String userID="";
+  String isbn="";
+  String bookRate="";
+  String isbn13="";
+  String bookTitle="";
+  String bookAuthor="";
+  String text_reviews_count="";
+
+  final FirebaseAuth auth = FirebaseAuth.instance;
+
+
   void showToast() {
     setState(() {
       _isVisible = !_isVisible;
@@ -45,8 +64,53 @@ class _BookDetailsFormState extends State<BookDetailsForm> {
     });
   }
 
+  Future<String> addRate(
+      String userID, String isbn, String bookRate) async {
+    Rate rate = Rate(userID: "", isbn: "", bookRate: "");
+
+    String retVal = "Error";
+    try {
+      rate.userID = auth.currentUser!.uid;
+      rate.isbn = isbn;
+      rate.bookRate = bookRate;
+      String _returnString = await VbookDatabase().createRatings(rate);
+      if (_returnString == "Success") {
+        retVal = "Success";
+      }
+    }
+    catch (e) {
+      print(e);
+    }
+    return retVal;
+  }
+  Future<String> addBook(
+       String userId, String title,String author,String rating,String text_reviews,) async {
+    Book book = Book(userId:"",authors:"",average_rating: "",bookID: "",isbn: "",isbn13: "",
+        language_code: "",num_pages: "",publication_date: "",publisher: "",ratings_count: "",text_reviews_count: "", title: "");
+    String retVal = "Error";
+    try {
+      {
+        book.userId=auth.currentUser!.uid;
+        book.title=title;
+        book.authors=author;
+        book.average_rating=rating;
+        book.text_reviews_count=text_reviews;
+      }
+      String _returnString = await VbookDatabase().createBooks(book);
+      if (_returnString == "Success") {
+        retVal = "Success";
+      }
+    }
+    catch (e) {
+      print(e);
+    }
+    return retVal;
+  }
+
+
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
         backgroundColor: Colors.grey.shade200,
         body: Stack(
@@ -256,7 +320,6 @@ class _BookDetailsFormState extends State<BookDetailsForm> {
                             height: 60,
                           ),
                           RatingBar.builder(
-                            glowColor: Colors.orange,
                             initialRating: 2.5,
                             minRating: 0,
                             direction: Axis.horizontal,
@@ -272,10 +335,10 @@ class _BookDetailsFormState extends State<BookDetailsForm> {
                             },
                           ),
                           SizedBox(
-                            height: 20,
+                            height: 8,
                           ),
                           Text(
-                            "Rating: " + updateRate.toString(),
+                            updateRate.toString(),
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ],
@@ -288,6 +351,9 @@ class _BookDetailsFormState extends State<BookDetailsForm> {
                       padding: EdgeInsets.symmetric(horizontal: 18),
                       child: TextButton(
                         onPressed: () {
+                          addRate(auth.currentUser!.uid,widget.isbn13,updateRate.toString());
+                          addBook(auth.currentUser!.uid,widget.bookTitle,widget.authors,updateRate.toString(),widget.textReviewsCount);
+
                           //updateRate
                         },
                         style: TextButton.styleFrom(

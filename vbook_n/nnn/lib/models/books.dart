@@ -1,4 +1,5 @@
 class Book {
+  String userId;
   String authors;
   String average_rating;
   String bookID;
@@ -13,6 +14,7 @@ class Book {
   String title;
 
   Book({
+    required this.userId,
     required this.authors,
     required this.average_rating,
     required this.bookID,
