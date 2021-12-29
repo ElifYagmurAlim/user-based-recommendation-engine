@@ -44,6 +44,10 @@ class _ProfileFormScreenState extends State<ProfileFormScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("VBOOK"),
+        backgroundColor: Colors.orange,
+      ),
       backgroundColor: Colors.grey.shade200,
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),

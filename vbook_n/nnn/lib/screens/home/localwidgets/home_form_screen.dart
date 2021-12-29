@@ -169,6 +169,8 @@ class _HomeFormScreenState extends State<HomeFormScreen> {
                             snapshot.child("title").value.toString();
                         String ratings_count =
                             snapshot.child("ratings_count").value.toString();
+                        String isbn13 =
+                            snapshot.child("isbn13").value.toString();
                         String text_reviews_count = snapshot
                             .child("text_reviews_count")
                             .value
@@ -186,7 +188,8 @@ class _HomeFormScreenState extends State<HomeFormScreen> {
                                   publisher: publisher,
                                   bookTitle: book_title,
                                   ratingsCount: ratings_count,
-                                  textReviewsCount: text_reviews_count)),
+                                  textReviewsCount: text_reviews_count,
+                                  isbn13: isbn13)),
                         );
                       },
                     ),

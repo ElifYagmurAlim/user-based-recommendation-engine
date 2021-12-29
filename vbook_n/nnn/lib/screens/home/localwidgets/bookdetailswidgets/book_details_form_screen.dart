@@ -2,9 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:nnn/models/books.dart';
-import 'package:nnn/models/rating.dart';
+import 'package:nnn/models/ratings.dart';
 import 'package:nnn/screens/home/home_screen.dart';
-import 'package:nnn/screens/home/localwidgets/home_form_screen.dart';
 import 'package:nnn/services/database.dart';
 
 class BookDetailsForm extends StatefulWidget {
@@ -41,16 +40,15 @@ class BookDetailsForm extends StatefulWidget {
 class _BookDetailsFormState extends State<BookDetailsForm> {
   bool _isVisible = true;
   double updateRate = 2.5;
-  String userID="";
-  String isbn="";
-  String bookRate="";
-  String isbn13="";
-  String bookTitle="";
-  String bookAuthor="";
-  String text_reviews_count="";
+  String userID = "";
+  String isbn = "";
+  String bookRate = "";
+  String isbn13 = "";
+  String bookTitle = "";
+  String bookAuthor = "";
+  String text_reviews_count = "";
 
   final FirebaseAuth auth = FirebaseAuth.instance;
-
 
   void showToast() {
     setState(() {
@@ -64,8 +62,7 @@ class _BookDetailsFormState extends State<BookDetailsForm> {
     });
   }
 
-  Future<String> addRate(
-      String userID, String isbn, String bookRate) async {
+  Future<String> addRate(String userID, String isbn, String bookRate) async {
     Rate rate = Rate(userID: "", isbn: "", bookRate: "");
 
     String retVal = "Error";
@@ -77,40 +74,54 @@ class _BookDetailsFormState extends State<BookDetailsForm> {
       if (_returnString == "Success") {
         retVal = "Success";
       }
-    }
-    catch (e) {
+    } catch (e) {
       print(e);
     }
     return retVal;
   }
+
   Future<String> addBook(
-       String userId, String title,String author,String rating,String text_reviews,) async {
-    Book book = Book(userId:"",authors:"",average_rating: "",bookID: "",isbn: "",isbn13: "",
-        language_code: "",num_pages: "",publication_date: "",publisher: "",ratings_count: "",text_reviews_count: "", title: "");
+    String userId,
+    String title,
+    String author,
+    String rating,
+    String text_reviews,
+  ) async {
+    Book book = Book(
+        userId: "",
+        authors: "",
+        average_rating: "",
+        bookID: "",
+        isbn: "",
+        isbn13: "",
+        language_code: "",
+        num_pages: "",
+        publication_date: "",
+        publisher: "",
+        ratings_count: "",
+        text_reviews_count: "",
+        title: "");
     String retVal = "Error";
     try {
       {
-        book.userId=auth.currentUser!.uid;
-        book.title=title;
-        book.authors=author;
-        book.average_rating=rating;
-        book.text_reviews_count=text_reviews;
+        book.userId = auth.currentUser!.uid;
+        book.title = title;
+        book.authors = author;
+        book.average_rating = rating;
+        book.text_reviews_count = text_reviews;
       }
       String _returnString = await VbookDatabase().createBooks(book);
       if (_returnString == "Success") {
         retVal = "Success";
       }
-    }
-    catch (e) {
+    } catch (e) {
       print(e);
     }
     return retVal;
   }
 
-
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
         backgroundColor: Colors.grey.shade200,
         body: Stack(
@@ -351,10 +362,21 @@ class _BookDetailsFormState extends State<BookDetailsForm> {
                       padding: EdgeInsets.symmetric(horizontal: 18),
                       child: TextButton(
                         onPressed: () {
-                          addRate(auth.currentUser!.uid,widget.isbn13,updateRate.toString());
-                          addBook(auth.currentUser!.uid,widget.bookTitle,widget.authors,updateRate.toString(),widget.textReviewsCount);
-
-                          //updateRate
+                          addRate(auth.currentUser!.uid, widget.isbn13,
+                              updateRate.toString());
+                          addBook(
+                              auth.currentUser!.uid,
+                              widget.bookTitle,
+                              widget.authors,
+                              updateRate.toString(),
+                              widget.textReviewsCount);
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => HomeScreen(),
+                              ),
+                              (route) => false);
+                          //updateRateNavigator.pushAndRemoveUntil(
                         },
                         style: TextButton.styleFrom(
                             backgroundColor: Colors.green,
