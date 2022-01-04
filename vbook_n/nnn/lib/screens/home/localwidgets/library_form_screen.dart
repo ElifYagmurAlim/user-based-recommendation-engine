@@ -86,27 +86,6 @@ class _LibraryFormScreenState extends State<LibraryFormScreen> {
                                             vertical: 2),
                                         child: Row(
                                           children: [
-                                            // RatingBar.builder(
-                                            //   itemSize: 20,
-                                            //   initialRating: double.parse(
-                                            //       snapshot.child("average_rating").value.toString()),
-                                            //   minRating: 0,
-                                            //   direction: Axis.horizontal,
-                                            //   allowHalfRating: true,
-                                            //   itemCount: 5,
-                                            //   ignoreGestures: true,
-                                            //   updateOnDrag: false,
-                                            //   unratedColor: Colors.black,
-                                            //   itemPadding: EdgeInsets.symmetric(horizontal: 1.0),
-                                            //   itemBuilder: (context, _) => Icon(
-                                            //     Icons.star,
-                                            //     color: Colors.yellow.shade400,
-                                            //   ),
-                                            //   onRatingUpdate: (rating) {
-                                            //     print(rating);
-                                            //   },
-                                            // ),
-
                                             RatingBarIndicator(
                                               itemSize: 20,
                                               rating: double.parse(
@@ -137,17 +116,6 @@ class _LibraryFormScreenState extends State<LibraryFormScreen> {
                                       ),
                                     ],
                                   ),
-                                  //),
-                                  // Container(
-                                  //   child: IconButton(
-                                  //     onPressed: () {},
-                                  //     icon: Icon(
-                                  //       Icons.keyboard_arrow_right,
-                                  //       color: Colors.black,
-                                  //       size: 40,
-                                  //     ),
-                                  //   ),
-                                  // )
                                 ],
                               ),
                             )),

@@ -28,12 +28,10 @@ class _HomeFormScreenState extends State<HomeFormScreen> {
             itemBuilder: (BuildContext context, DataSnapshot snapshot,
                 Animation<double> animation, int index) {
               var x = snapshot;
-              //fechData(x);
               return Stack(
                 children: [
                   Container(
                       height: 100,
-                      padding: EdgeInsets.only(top: 10, bottom: 10, left: 20),
                       margin: EdgeInsets.symmetric(vertical: 1),
                       decoration: BoxDecoration(
                         color: Colors.white,
@@ -41,108 +39,86 @@ class _HomeFormScreenState extends State<HomeFormScreen> {
                       child: Container(
                         child: Row(
                           children: [
-                            // Container(
-                            //   width: 320,
-                            //   child:
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  width: 350,
-                                  height: 32,
-                                  child: Text(
-                                    snapshot.child("title").value.toString(),
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 14),
+                            Container(
+                                child: Image.network(snapshot
+                                    .child("image_url")
+                                    .value
+                                    .toString())),
+                            Container(
+                              padding: EdgeInsets.only(
+                                  top: 10, bottom: 10, left: 10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    width: 300,
+                                    height: 32,
+                                    child: Text(
+                                      snapshot.child("title").value.toString(),
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 14),
+                                    ),
                                   ),
-                                ),
-                                SizedBox(
-                                  width: 270.0,
-                                  height: 28,
-                                  child: Text(
-                                    snapshot.child("authors").value.toString(),
-                                    style: TextStyle(
-                                        color: Colors.grey.shade600,
-                                        fontSize: 12),
+                                  SizedBox(
+                                    width: 270.0,
+                                    height: 28,
+                                    child: Text(
+                                      snapshot
+                                          .child("authors")
+                                          .value
+                                          .toString(),
+                                      style: TextStyle(
+                                          color: Colors.grey.shade600,
+                                          fontSize: 12),
+                                    ),
                                   ),
-                                ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 2),
-                                  child: Row(
-                                    children: [
-                                      // RatingBar.builder(
-                                      //   itemSize: 20,
-                                      //   initialRating: double.parse(
-                                      //       snapshot.child("average_rating").value.toString()),
-                                      //   minRating: 0,
-                                      //   direction: Axis.horizontal,
-                                      //   allowHalfRating: true,
-                                      //   itemCount: 5,
-                                      //   ignoreGestures: true,
-                                      //   updateOnDrag: false,
-                                      //   unratedColor: Colors.black,
-                                      //   itemPadding: EdgeInsets.symmetric(horizontal: 1.0),
-                                      //   itemBuilder: (context, _) => Icon(
-                                      //     Icons.star,
-                                      //     color: Colors.yellow.shade400,
-                                      //   ),
-                                      //   onRatingUpdate: (rating) {
-                                      //     print(rating);
-                                      //   },
-                                      // ),
-
-                                      Icon(
-                                        Icons.star,
-                                        color: Colors.yellow.shade600,
-                                        size: 16,
-                                      ),
-                                      Text(
-                                        snapshot
-                                            .child("average_rating")
-                                            .value
-                                            .toString(),
-                                        style: TextStyle(
-                                            color: Colors.blue,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 12),
-                                      ),
-                                      Text(
-                                        '/ 5.0',
-                                        style: TextStyle(
-                                            color: Colors.grey[500],
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 12),
-                                      ),
-                                      Text(
-                                        " (" +
-                                            snapshot
-                                                .child("text_reviews_count")
-                                                .value
-                                                .toString() +
-                                            " reviews)",
-                                        style: TextStyle(
-                                            color: Colors.orange,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 11),
-                                      ),
-                                    ],
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.symmetric(vertical: 2),
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          Icons.star,
+                                          color: Colors.yellow.shade600,
+                                          size: 16,
+                                        ),
+                                        Text(
+                                          snapshot
+                                              .child("average_rating")
+                                              .value
+                                              .toString(),
+                                          style: TextStyle(
+                                              color: Colors.blue,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12),
+                                        ),
+                                        Text(
+                                          '/ 5.0',
+                                          style: TextStyle(
+                                              color: Colors.grey[500],
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12),
+                                        ),
+                                        Text(
+                                          " (" +
+                                              snapshot
+                                                  .child(
+                                                      "work_text_reviews_count")
+                                                  .value
+                                                  .toString() +
+                                              " reviews)",
+                                          style: TextStyle(
+                                              color: Colors.orange,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 11),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
-                            //),
-                            // Container(
-                            //   child: IconButton(
-                            //     onPressed: () {},
-                            //     icon: Icon(
-                            //       Icons.keyboard_arrow_right,
-                            //       color: Colors.black,
-                            //       size: 40,
-                            //     ),
-                            //   ),
-                            // )
+                                ],
+                              ),
+                            )
                           ],
                         ),
                       )),
@@ -152,17 +128,17 @@ class _HomeFormScreenState extends State<HomeFormScreen> {
                     child: MaterialButton(
                       onPressed: () {
                         String bookID =
-                            snapshot.child("bookID").value.toString();
+                            snapshot.child("book_id").value.toString();
                         String authors =
                             snapshot.child("authors").value.toString();
                         String average_rating =
                             snapshot.child("average_rating").value.toString();
                         String language_code =
                             snapshot.child("language_code").value.toString();
-                        String num_pages =
-                            snapshot.child("num_pages").value.toString();
-                        String publication_date =
-                            snapshot.child("publication_date").value.toString();
+                        String publication_date = snapshot
+                            .child("original_publication_year")
+                            .value
+                            .toString();
                         String publisher =
                             snapshot.child("publisher").value.toString();
                         String book_title =
@@ -172,9 +148,13 @@ class _HomeFormScreenState extends State<HomeFormScreen> {
                         String isbn13 =
                             snapshot.child("isbn13").value.toString();
                         String text_reviews_count = snapshot
-                            .child("text_reviews_count")
+                            .child("work_text_reviews_count")
                             .value
                             .toString();
+                        String imagePath =
+                            snapshot.child("image_url").value.toString();
+                        print(imagePath);
+                        print("a");
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -183,49 +163,19 @@ class _HomeFormScreenState extends State<HomeFormScreen> {
                                   authors: authors,
                                   averageRating: average_rating,
                                   languageCode: language_code,
-                                  numPages: num_pages,
                                   publicationDate: publication_date,
                                   publisher: publisher,
                                   bookTitle: book_title,
                                   ratingsCount: ratings_count,
                                   textReviewsCount: text_reviews_count,
-                                  isbn13: isbn13)),
+                                  isbn13: isbn13,
+                                  imagePath: imagePath)),
                         );
                       },
                     ),
                   ),
                 ],
               );
-              // return Container(
-              //     margin: EdgeInsets.all(8),
-              //     decoration: BoxDecoration(
-              //         borderRadius: BorderRadius.circular(12), color: Colors.green),
-              //     child: ListTile(
-              //       contentPadding: EdgeInsets.all(16),
-              //       title: Text(snapshot.child("title").value.toString()),
-              //       subtitle: Text(
-              //         snapshot.child("authors").value.toString(),
-              //         style: TextStyle(color: Colors.white),
-              //       ),
-              //       trailing: IconButton(
-              //         icon: Icon(
-              //           Icons.keyboard_arrow_right,
-              //           color: Colors.white,
-              //           size: 32,
-              //         ),
-
-              //         onPressed: () {
-              //           var y = snapshot.child("bookID").value.toString();
-              //           Navigator.push(
-              //             context,
-              //             MaterialPageRoute(
-              //                 builder: (context) => BookDetailsForm(y: y)),
-              //           );
-              //           print(snapshot.child("title").value.toString());
-              //           print(snapshot.child("bookID").value.toString());
-              //         },
-              //       ),
-              //     ));
             },
           ),
         ));
