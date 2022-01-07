@@ -20,8 +20,7 @@ class _RecommendationFormScreenState extends State<RecommendationFormScreen> {
     print('Name: ${model.name}');
     print('Size: ${model.size}');
     print('Hash: ${model.hash}');
-    final interpreter =
-        await tfl.Interpreter.fromAsset('firebase_ml_model.tflite');
+    final interpreter = await Interpreter.fromAsset('firebase_ml_model.tflite');
     print('Interpreter loaded successfully');
     // For ex: if input tensor shape [1,5] and type is float32
     var input = [
