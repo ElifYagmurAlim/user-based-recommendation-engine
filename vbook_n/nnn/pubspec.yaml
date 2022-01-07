@@ -40,8 +40,10 @@ dependencies:
   cloud_firestore: ^3.1.5
   firebase_database: ^9.0.4
   provider: ^6.0.1
-  flutter_rating_bar: ^4.0.0 
+  flutter_rating_bar: ^4.0.0  
+  tflite_flutter: ^0.9.0
   firebase_ml_model_downloader: ^0.1.0+4
+  firebase_ml_custom: ^0.2.0+3
 
 dev_dependencies:
   flutter_test:
@@ -71,6 +73,7 @@ flutter:
     - assets/images/vbook_logo_w.png
     - assets/images/vbook_w.png
     - assets/images/welcome_logo.png
+    - assets/firebase_ml_model.tflite
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
