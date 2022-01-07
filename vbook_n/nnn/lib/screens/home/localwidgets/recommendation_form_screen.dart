@@ -1,8 +1,5 @@
-import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:firebase_ml_model_downloader/firebase_ml_model_downloader.dart';
-import 'package:flutter/services.dart';
-import 'package:mlkit/mlkit.dart';
 import 'package:tflite_flutter/tflite_flutter.dart';
 
 class RecommendationFormScreen extends StatefulWidget {
@@ -15,32 +12,31 @@ class RecommendationFormScreen extends StatefulWidget {
 
 class _RecommendationFormScreenState extends State<RecommendationFormScreen> {
   FirebaseModelDownloader downloader = FirebaseModelDownloader.instance;
-  FirebaseModelInterpreter interpreter = FirebaseModelInterpreter.instance;
-  FirebaseModelManager manager = FirebaseModelManager.instance;
 
   dara() async {
-    var convertedBytes = new Uint8List(1);
-    var buffer = new ByteData.view(convertedBytes.buffer);
-    manager.registerRemoteModelSource(
-        FirebaseRemoteModelSource(modelName: "example_model"));
-    manager.registerLocalModelSource(FirebaseLocalModelSource(
-        modelName: 'firebase_ml_model',
-        assetFilePath: 'assets/model/firebase_ml_model.tflite'));
-    var results = await interpreter.run(
-        remoteModelName: "example_model",
-        localModelName: "firebase_ml_model",
-        inputOutputOptions: FirebaseModelInputOutputOptions([
-          FirebaseModelIOOption(FirebaseModelDataType.FLOAT32, [1, 1])
-        ], [
-          FirebaseModelIOOption(FirebaseModelDataType.FLOAT32, [1, 1])
-        ]),
-        inputBytes: convertedBytes);
-    // FirebaseCustomModel model = await FirebaseModelDownloader.instance
-    //     .getModel('example_model', FirebaseModelDownloadType.latestModel);
-    print(results);
-    // print('Name: ${model.name}');
-    // print('Size: ${model.size}');
-    // print('Hash: ${model.hash}');
+    FirebaseCustomModel model = await FirebaseModelDownloader.instance
+        .getModel('example_model', FirebaseModelDownloadType.latestModel);
+
+    print('Name: ${model.name}');
+    print('Size: ${model.size}');
+    print('Hash: ${model.hash}');
+    final interpreter =
+        await tfl.Interpreter.fromAsset('firebase_ml_model.tflite');
+    print('Interpreter loaded successfully');
+    // For ex: if input tensor shape [1,5] and type is float32
+    var input = [
+      [1.0],
+      [1.0]
+    ];
+
+    // if output tensor shape [1,2] and type is float32
+    var output = List.filled(1 * 1, 0).reshape([1, 1]);
+
+    // inference
+    interpreter.run(input, output);
+
+    // print the output
+    print(output);
   }
 
   @override
