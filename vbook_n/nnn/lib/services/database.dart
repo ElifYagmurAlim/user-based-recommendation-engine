@@ -91,6 +91,45 @@ class VbookDatabase {
     return retVal;
   }
 
+  Future getBookData() async {
+    String retVal = "error";
+    List itemList = [];
+    List idList = [];
+    try {
+      await bookCollection.get().then((QuerySnapshot querySnapshot) {
+        querySnapshot.docs.forEach((doc) {
+          itemList.add(doc["bookTitle"]);
+          idList.add(doc["userID"]);
+        });
+      });
+      ;
+
+      return itemList;
+    } catch (e) {
+      print(e.toString());
+    }
+    return retVal;
+  }
+
+  Future getUserId() async {
+    String retVal = "error";
+
+    List idList = [];
+    try {
+      await bookCollection.get().then((QuerySnapshot querySnapshot) {
+        querySnapshot.docs.forEach((doc) {
+          idList.add(doc["userID"]);
+        });
+      });
+      ;
+
+      return idList;
+    } catch (e) {
+      print(e.toString());
+    }
+    return retVal;
+  }
+
   CollectionReference users = FirebaseFirestore.instance.collection('users');
 
   Future<void> deleteUser(String userId) {

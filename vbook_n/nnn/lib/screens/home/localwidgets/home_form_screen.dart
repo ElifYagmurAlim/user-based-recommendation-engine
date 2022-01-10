@@ -54,7 +54,10 @@ class _HomeFormScreenState extends State<HomeFormScreen> {
                                     width: 300,
                                     height: 32,
                                     child: Text(
-                                      snapshot.child("title").value.toString(),
+                                      snapshot
+                                          .child("original_title")
+                                          .value
+                                          .toString(),
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 14),
@@ -142,7 +145,7 @@ class _HomeFormScreenState extends State<HomeFormScreen> {
                         String publisher =
                             snapshot.child("publisher").value.toString();
                         String book_title =
-                            snapshot.child("title").value.toString();
+                            snapshot.child("original_title").value.toString();
                         String ratings_count =
                             snapshot.child("ratings_count").value.toString();
                         String isbn13 =
