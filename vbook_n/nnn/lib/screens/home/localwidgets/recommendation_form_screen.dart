@@ -29,6 +29,7 @@ class _RecommendationFormScreenState extends State<RecommendationFormScreen> {
   List list = [];
   List list2 = [];
   List list3 = [];
+  String lateargs = "";
   String id = "";
   getBookList() async {
     dynamic result = await VbookDatabase().getBookData();
@@ -65,7 +66,12 @@ class _RecommendationFormScreenState extends State<RecommendationFormScreen> {
     return decodedData['query'];
   }
 
-  Future getBooks(String item) async {
+  Future getBooks() async {
+    var item;
+    list3.clear();
+    List<String> asd = id.split(',');
+    asd.toSet().toList();
+
     DatabaseReference ref = FirebaseDatabase.instance.ref();
 
 // Get the Stream
@@ -73,9 +79,13 @@ class _RecommendationFormScreenState extends State<RecommendationFormScreen> {
 
 // Subscribe to the stream!
     stream.listen((DatabaseEvent event) {
-      print('Event Type: ${event.type}'); // DatabaseEventType.value;
-      print('Snapshot: ${event.snapshot.child(item).value}'); // DataSnapshot
+      for (item in asd) {
+        print(event.snapshot.child(item).child("title").value);
+        list3.add(event.snapshot.child(item).child("title").value);
+      }
+      // DataSnapshot
     });
+    return Text(list3.toString());
   }
 
   @override
@@ -85,14 +95,23 @@ class _RecommendationFormScreenState extends State<RecommendationFormScreen> {
         height: double.infinity,
         child: Column(
           children: [
+            Text(lateargs),
+            MaterialButton(
+              color: Colors.white,
+              onPressed: () async {
+                getBooks();
+              },
+            ),
             MaterialButton(
               color: Colors.white,
               onPressed: () {
-                List<String> asd = id.split(',');
-                asd.toSet().toList();
-                for (var item in asd) {
-                  getBooks(item);
-                }
+                setState(() {
+                  var xyz = "";
+                  for (var item in list3) {
+                    xyz += item + "\n";
+                  }
+                  lateargs = xyz;
+                });
               },
             ),
           ],
