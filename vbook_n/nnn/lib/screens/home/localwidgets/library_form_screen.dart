@@ -41,88 +41,80 @@ class _LibraryFormScreenState extends State<LibraryFormScreen> {
                 itemBuilder: (context, index) {
                   if ("${data.docs[index]['userID']}" ==
                       _auth.currentUser!.uid) {
-                    return Stack(
-                      children: [
-                        Container(
-                            height: 120,
-                            padding:
-                                EdgeInsets.only(top: 10, bottom: 10, left: 20),
-                            margin: EdgeInsets.symmetric(vertical: 1),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                            ),
-                            child: Container(
-                              child: Row(
+                    return Container(
+                        padding: EdgeInsets.only(top: 10, bottom: 10, left: 20),
+                        margin: EdgeInsets.symmetric(vertical: 1),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                        ),
+                        child: Container(
+                          child: Row(
+                            children: [
+                              // Container(
+                              //   width: 320,
+                              //   child:
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  // Container(
-                                  //   width: 320,
-                                  //   child:
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(
-                                        width: 350,
-                                        height: 32,
-                                        child: Text(
-                                          data.docs[index]['bookTitle'],
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 14),
+                                  SizedBox(
+                                    width: 350,
+                                    height: 32,
+                                    child: Text(
+                                      data.docs[index]['bookTitle'],
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 14),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 270.0,
+                                    height: 28,
+                                    child: Text(
+                                      data.docs[index]['bookAuthor'],
+                                      style: TextStyle(
+                                          color: Colors.grey.shade600,
+                                          fontSize: 12),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.symmetric(vertical: 2),
+                                    child: Row(
+                                      children: [
+                                        RatingBarIndicator(
+                                          itemSize: 20,
+                                          rating: double.parse(
+                                              data.docs[index]['rating']),
+                                          direction: Axis.horizontal,
+                                          itemCount: 5,
+                                          unratedColor: Colors.grey.shade700,
+                                          itemPadding: EdgeInsets.symmetric(
+                                              horizontal: 1.0),
+                                          itemBuilder: (context, _) => Icon(
+                                            Icons.star,
+                                            color: Colors.yellow.shade800,
+                                          ),
                                         ),
-                                      ),
-                                      SizedBox(
-                                        width: 270.0,
-                                        height: 28,
-                                        child: Text(
-                                          data.docs[index]['bookAuthor'],
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text(
+                                          data.docs[index]['rating'],
                                           style: TextStyle(
-                                              color: Colors.grey.shade600,
+                                              color: Colors.purple,
+                                              fontWeight: FontWeight.bold,
                                               fontSize: 12),
                                         ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 2),
-                                        child: Row(
-                                          children: [
-                                            RatingBarIndicator(
-                                              itemSize: 20,
-                                              rating: double.parse(
-                                                  data.docs[index]['rating']),
-                                              direction: Axis.horizontal,
-                                              itemCount: 5,
-                                              unratedColor:
-                                                  Colors.grey.shade700,
-                                              itemPadding: EdgeInsets.symmetric(
-                                                  horizontal: 1.0),
-                                              itemBuilder: (context, _) => Icon(
-                                                Icons.star,
-                                                color: Colors.yellow.shade800,
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 10,
-                                            ),
-                                            Text(
-                                              data.docs[index]['rating'],
-                                              style: TextStyle(
-                                                  color: Colors.purple,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 12),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ),
-                            )),
-                      ],
-                    );
+                            ],
+                          ),
+                        ));
                   } else {
-                    return Text("");
+                    return SizedBox();
                   }
                 },
               );

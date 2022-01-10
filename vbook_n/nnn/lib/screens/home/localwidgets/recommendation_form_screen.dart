@@ -1,6 +1,6 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:firebase_ml_model_downloader/firebase_ml_model_downloader.dart';
-import 'package:tflite_flutter/tflite_flutter.dart';
+import 'package:http/http.dart' as http;
 
 class RecommendationFormScreen extends StatefulWidget {
   const RecommendationFormScreen({Key? key}) : super(key: key);
@@ -11,31 +11,16 @@ class RecommendationFormScreen extends StatefulWidget {
 }
 
 class _RecommendationFormScreenState extends State<RecommendationFormScreen> {
-  FirebaseModelDownloader downloader = FirebaseModelDownloader.instance;
+  String title = "Ghosts (The New York Trilogy #2)";
+  Future getData(url) async {
+    http.Response response = await http.get(Uri.parse(url));
+    return response.body;
+  }
 
-  dara() async {
-    FirebaseCustomModel model = await FirebaseModelDownloader.instance
-        .getModel('example_model', FirebaseModelDownloadType.latestModel);
-
-    print('Name: ${model.name}');
-    print('Size: ${model.size}');
-    print('Hash: ${model.hash}');
-    final interpreter = await Interpreter.fromAsset('firebase_ml_model.tflite');
-    print('Interpreter loaded successfully');
-    // For ex: if input tensor shape [1,5] and type is float32
-    var input = [
-      [1.0],
-      [1.0]
-    ];
-
-    // if output tensor shape [1,2] and type is float32
-    var output = List.filled(1 * 1, 0).reshape([1, 1]);
-
-    // inference
-    interpreter.run(input, output);
-
-    // print the output
-    print(output);
+  Future geaatData() async {
+    var data = await getData('http://10.0.2.2:5000/jsondata?title=' + title);
+    var decodedData = jsonDecode(data);
+    print(decodedData['query']);
   }
 
   @override
@@ -43,7 +28,7 @@ class _RecommendationFormScreenState extends State<RecommendationFormScreen> {
     return Container(
       child: MaterialButton(
         onPressed: () {
-          dara();
+          geaatData();
         },
       ),
     );
