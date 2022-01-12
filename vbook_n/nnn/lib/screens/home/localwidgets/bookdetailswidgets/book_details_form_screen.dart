@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:nnn/models/books.dart';
@@ -400,6 +402,7 @@ class _BookDetailsFormState extends State<BookDetailsForm> {
                                 builder: (context) => HomeScreen(),
                               ),
                               (route) => false);
+
                           //updateRateNavigator.pushAndRemoveUntil(
                         },
                         style: TextButton.styleFrom(

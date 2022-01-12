@@ -19,7 +19,7 @@ class _LibraryFormScreenState extends State<LibraryFormScreen> {
     return Scaffold(
         appBar: AppBar(
           title: Text("VBOOK"),
-          backgroundColor: Colors.purple,
+          backgroundColor: Colors.green[700],
         ),
         body: Container(
           child: StreamBuilder<QuerySnapshot>(

@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nnn/root/root.dart';
 import 'package:nnn/screens/home/localwidgets/profilewidgets/change_password_form_screen.dart';
@@ -46,7 +45,7 @@ class _ProfileFormScreenState extends State<ProfileFormScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("VBOOK"),
-        backgroundColor: Colors.orange,
+        backgroundColor: Colors.blueGrey.shade700,
       ),
       backgroundColor: Colors.grey.shade200,
       body: SingleChildScrollView(
@@ -59,7 +58,7 @@ class _ProfileFormScreenState extends State<ProfileFormScreen> {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0)),
               margin: const EdgeInsets.only(top: 32.0, bottom: 8.0),
-              color: Colors.orange,
+              color: Colors.blueGrey.shade700,
               child: ListTile(
                 onTap: () {
                   //open edit profile
@@ -83,7 +82,7 @@ class _ProfileFormScreenState extends State<ProfileFormScreen> {
                 children: <Widget>[
                   ListTile(
                     leading: Icon(Icons.account_circle_outlined,
-                        color: Colors.orange),
+                        color: Colors.blueGrey.shade700),
                     title: Text("Change Username"),
                     trailing: Icon(Icons.keyboard_arrow_right),
                     onTap: () {
@@ -101,7 +100,8 @@ class _ProfileFormScreenState extends State<ProfileFormScreen> {
                     color: Colors.grey.shade400,
                   ),
                   ListTile(
-                    leading: Icon(Icons.lock_outline, color: Colors.orange),
+                    leading: Icon(Icons.lock_outline,
+                        color: Colors.blueGrey.shade700),
                     title: Text("Change Password"),
                     trailing: Icon(Icons.keyboard_arrow_right),
                     onTap: () {
@@ -127,7 +127,8 @@ class _ProfileFormScreenState extends State<ProfileFormScreen> {
               child: Column(
                 children: <Widget>[
                   ListTile(
-                    leading: Icon(Icons.logout_outlined, color: Colors.orange),
+                    leading: Icon(Icons.logout_outlined,
+                        color: Colors.blueGrey.shade700),
                     title: Text("Log Out"),
                     trailing: Icon(Icons.keyboard_arrow_right),
                     onTap: () async {
@@ -160,7 +161,8 @@ class _ProfileFormScreenState extends State<ProfileFormScreen> {
               child: Column(
                 children: <Widget>[
                   ListTile(
-                    leading: Icon(Icons.delete_outline, color: Colors.orange),
+                    leading: Icon(Icons.delete_outline,
+                        color: Colors.blueGrey.shade700),
                     title: Text("Delete Account"),
                     trailing: Icon(Icons.keyboard_arrow_right),
                     onTap: () async {

@@ -40,6 +40,7 @@ class _HomeFormScreenState extends State<HomeFormScreen> {
                         child: Row(
                           children: [
                             Container(
+                                width: 72,
                                 child: Image.network(snapshot
                                     .child("image_url")
                                     .value

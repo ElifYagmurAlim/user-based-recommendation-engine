@@ -4,12 +4,18 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:http/http.dart' as http;
+import 'package:nnn/models/books.dart';
+import 'package:nnn/screens/home/localwidgets/bookdetailswidgets/book_details_form_screen.dart';
 import 'package:nnn/services/database.dart';
 
 class RecommendationFormScreen extends StatefulWidget {
-  const RecommendationFormScreen({Key? key}) : super(key: key);
-
+  const RecommendationFormScreen(
+      {Key? key, required this.lateargs, required this.imagePaths})
+      : super(key: key);
+  final List<Book> lateargs;
+  final List<String> imagePaths;
   @override
   _RecommendationFormScreenState createState() =>
       _RecommendationFormScreenState();
@@ -17,95 +23,133 @@ class RecommendationFormScreen extends StatefulWidget {
 
 class _RecommendationFormScreenState extends State<RecommendationFormScreen> {
   @override
-  void initState() {
-    super.initState();
-  }
-
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-
-  CollectionReference bookCollection =
-      FirebaseFirestore.instance.collection('library');
-  List list = [];
-  List list2 = [];
-  List list3 = [];
-  String lateargs = "";
-  String id = "";
-  getBookList() async {
-    dynamic result = await VbookDatabase().getBookData();
-    dynamic result2 = await VbookDatabase().getUserId();
-    if (result == null && result2 == null) {
-      print("error");
-    } else {
-      list = result;
-      list2 = result2;
-      id = "";
-      for (int i = 0; i < list.length - 1; i++) {
-        if (_auth.currentUser!.uid == list2[i]) {
-          getTitle(list[i]);
-        }
-      }
-    }
-  }
-
-  Future getData(url) async {
-    http.Response response = await http.get(Uri.parse(url));
-    if (response.statusCode == 200) {
-      return response.body;
-    } else
-      print("missing");
-  }
-
-  Future getTitle(String title) async {
-    var data = await getData('http://10.0.2.2:5000/jsondata?title=' + title);
-    var decodedData = jsonDecode(data);
-    if (id == "") {
-      id += decodedData['query'].toString();
-    } else
-      id += ", " + decodedData['query'].toString();
-    //return decodedData['query'];
-    var item;
-    list3.clear();
-    List<String> asd = id.split(',');
-    asd.toSet().toList();
-
-    DatabaseReference ref = FirebaseDatabase.instance.ref();
-
-// Get the Stream
-    Stream<DatabaseEvent> stream = ref.onValue;
-
-// Subscribe to the stream!
-    stream.listen((DatabaseEvent event) {
-      for (item in asd) {
-        print(event.snapshot.child(item).child("title").value);
-        list3.add(event.snapshot.child(item).child("title").value);
-      }
-      // DataSnapshot
-    });
-    return Text(list3.toString());
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Container(
-        width: double.infinity,
-        height: double.infinity,
-        child: Column(
-          children: [
-            getBookList(),
-            Text(lateargs),
-            MaterialButton(
-              color: Colors.white,
-              onPressed: () {
-                setState(() {
-                  var xyz = "";
-                  for (var item in list3) {
-                    xyz += item + "\n";
-                  }
-                  lateargs = xyz;
-                });
-              },
-            ),
-          ],
+    return Scaffold(
+        appBar: AppBar(
+          title: Text("VBOOK"),
+          backgroundColor: Colors.orange.shade600,
+        ),
+        body: ListView.builder(
+          itemCount: widget.lateargs.length - 1,
+          itemBuilder: (context, index) {
+            return Stack(
+              children: <Widget>[
+                Container(
+                    padding: EdgeInsets.only(top: 10, bottom: 10, left: 20),
+                    margin: EdgeInsets.symmetric(vertical: 1),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                    ),
+                    child: Container(
+                      child: Row(
+                        children: [
+                          // Container(
+                          //   width: 320,
+                          //   child:
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: 350,
+                                height: 32,
+                                child: Text(
+                                  widget.lateargs[index].title,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 270.0,
+                                height: 28,
+                                child: Text(
+                                  widget.lateargs[index].authors,
+                                  style: TextStyle(
+                                      color: Colors.grey.shade600,
+                                      fontSize: 12),
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 2),
+                                child: Row(
+                                  children: [
+                                    RatingBarIndicator(
+                                      itemSize: 20,
+                                      rating: double.parse(widget
+                                          .lateargs[index].average_rating),
+                                      direction: Axis.horizontal,
+                                      itemCount: 5,
+                                      unratedColor: Colors.grey.shade700,
+                                      itemPadding:
+                                          EdgeInsets.symmetric(horizontal: 1.0),
+                                      itemBuilder: (context, _) => Icon(
+                                        Icons.star,
+                                        color: Colors.yellow.shade800,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text(
+                                      widget.lateargs[index].average_rating,
+                                      style: TextStyle(
+                                          color: Colors.purple,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 12),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    )),
+                SizedBox(
+                  width: double.infinity,
+                  height: 100,
+                  child: MaterialButton(
+                    onPressed: () {
+                      print(widget.lateargs[index].language_code);
+                      String bookID = widget.lateargs[index].bookID;
+                      String authors = widget.lateargs[index].authors;
+                      String average_rating =
+                          widget.lateargs[index].average_rating;
+                      String language_code =
+                          widget.lateargs[index].language_code;
+                      String publication_date =
+                          widget.lateargs[index].publication_date;
+                      String publisher = widget.lateargs[index].publisher;
+                      String book_title = widget.lateargs[index].title;
+                      String ratings_count =
+                          widget.lateargs[index].ratings_count;
+                      String isbn13 = widget.lateargs[index].isbn13;
+                      String text_reviews_count =
+                          widget.lateargs[index].text_reviews_count;
+                      String imagePath = widget.imagePaths[index];
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => BookDetailsForm(
+                                bookId: bookID,
+                                authors: authors,
+                                averageRating: average_rating,
+                                languageCode: language_code,
+                                publicationDate: publication_date,
+                                publisher: publisher,
+                                bookTitle: book_title,
+                                ratingsCount: ratings_count,
+                                textReviewsCount: text_reviews_count,
+                                isbn13: isbn13,
+                                imagePath: imagePath)),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            );
+          },
         ));
   }
 }
