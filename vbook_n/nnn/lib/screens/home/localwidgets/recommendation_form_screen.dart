@@ -19,7 +19,6 @@ class _RecommendationFormScreenState extends State<RecommendationFormScreen> {
   @override
   void initState() {
     super.initState();
-    getBookList();
   }
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -63,10 +62,7 @@ class _RecommendationFormScreenState extends State<RecommendationFormScreen> {
       id += decodedData['query'].toString();
     } else
       id += ", " + decodedData['query'].toString();
-    return decodedData['query'];
-  }
-
-  Future getBooks() async {
+    //return decodedData['query'];
     var item;
     list3.clear();
     List<String> asd = id.split(',');
@@ -95,13 +91,8 @@ class _RecommendationFormScreenState extends State<RecommendationFormScreen> {
         height: double.infinity,
         child: Column(
           children: [
+            getBookList(),
             Text(lateargs),
-            MaterialButton(
-              color: Colors.white,
-              onPressed: () {
-                getBooks();
-              },
-            ),
             MaterialButton(
               color: Colors.white,
               onPressed: () {
