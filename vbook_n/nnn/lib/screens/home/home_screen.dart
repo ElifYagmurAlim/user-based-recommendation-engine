@@ -56,6 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
       FirebaseFirestore.instance.collection('library');
   List list = [];
   List list2 = [];
+  List list3 = [];
   List<Book> recBookList = [];
   String lateargs = "";
   String id = "";
@@ -70,19 +71,26 @@ class _HomeScreenState extends State<HomeScreen> {
       list = result;
       list2 = result2;
       id = "";
+      lateargs = "";
       counter = 0;
-      for (int i = 0; i < list.length - 1; i++) {
+      list3.clear();
+      recBookList = [];
+      imagePaths = [];
+      for (var i = 0; i < list2.length - 1; i++) {
         if (_auth.currentUser!.uid == list2[i]) {
-          getTitle(list[i], list2.length - 1);
+          list3.add(i);
         }
+      }
+      for (var item in list3) {
+        getTitle(list[item], list3.length);
       }
     }
   }
 
   Future getData(url) async {
     http.Response response = await http.get(Uri.parse(url));
+    counter++;
     if (response.statusCode == 200) {
-      counter += 10;
       return response.body;
     } else
       print("missing");
@@ -176,7 +184,12 @@ class _HomeScreenState extends State<HomeScreen> {
       imagePaths.add("");
       recBookList.add(book);
     }
-
+    for (var i = 0; i < imagePaths.length - 1; i++) {
+      if (imagePaths[i].isEmpty) {
+        imagePaths[i] =
+            "https://s.gr-assets.com/assets/nophoto/book/111x148-bcc042a9c91a29c1d680899eff700a03.png";
+      }
+    }
     return recBookList;
   }
 

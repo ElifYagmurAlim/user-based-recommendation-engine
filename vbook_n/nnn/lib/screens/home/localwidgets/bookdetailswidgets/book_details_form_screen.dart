@@ -93,6 +93,7 @@ class _BookDetailsFormState extends State<BookDetailsForm> {
     String author,
     String rating,
     String text_reviews,
+    String isbn13,
   ) async {
     Book book = Book(
         userId: "",
@@ -116,6 +117,7 @@ class _BookDetailsFormState extends State<BookDetailsForm> {
         book.authors = author;
         book.average_rating = rating;
         book.text_reviews_count = text_reviews;
+        book.isbn13 = isbn13;
       }
       String _returnString = await VbookDatabase().createBooks(book);
       if (_returnString == "Success") {
@@ -395,7 +397,8 @@ class _BookDetailsFormState extends State<BookDetailsForm> {
                               widget.bookTitle,
                               widget.authors,
                               updateRate.toString(),
-                              widget.textReviewsCount);
+                              widget.textReviewsCount,
+                              widget.isbn13);
                           Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(

@@ -57,12 +57,13 @@ class VbookDatabase {
   Future<String> createBooks(Book book) async {
     String retVal = "error";
     try {
-      bookCollection.doc().set({
+      bookCollection.doc(book.isbn13).set({
         'userID': _auth.currentUser!.uid,
         'bookTitle': book.title,
         'bookAuthor': book.authors,
         'rating': book.average_rating,
         'text_reviews_count': book.text_reviews_count,
+        'isbn13': book.isbn13,
       }).then((value) => print("Success!"));
       retVal = "Success";
       //       FirebaseFirestore.instance.collection('users').add({
@@ -137,6 +138,16 @@ class VbookDatabase {
         .doc(userId)
         .delete()
         .then((value) => print("User Deleted"))
+        .catchError((error) => print("Failed to delete user: $error"));
+  }
+
+  CollectionReference books = FirebaseFirestore.instance.collection('library');
+
+  Future<void> deleteBook(String isbn13) {
+    return books
+        .doc(isbn13)
+        .delete()
+        .then((value) => print("Book Deleted"))
         .catchError((error) => print("Failed to delete user: $error"));
   }
 }
