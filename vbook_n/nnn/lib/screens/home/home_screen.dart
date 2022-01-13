@@ -1,6 +1,5 @@
 // ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, deprecated_member_use
 import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
@@ -26,10 +25,15 @@ class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
   PageController pageController = PageController();
   String username = ' ';
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getBookList();
+  }
 
   void onTapped(int index) {
     setState(() {
-      getBookList();
       _selectedIndex = index;
     });
 
@@ -108,7 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
 // Subscribe to the stream!
       stream.listen((DatabaseEvent event) {
         for (item in queryResult) {
-          print(event.snapshot.child(item).child("title").value);
+          print(event.snapshot.child(item).child("original_title").value);
           imagePaths.add(
               event.snapshot.child(item).child("image_url").value.toString());
           Book book = Book(
@@ -136,8 +140,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   .child("work_text_reviews_count")
                   .value
                   .toString(),
-              title:
-                  event.snapshot.child(item).child("title").value.toString());
+              title: event.snapshot
+                  .child(item)
+                  .child("original_title")
+                  .value
+                  .toString());
 
           recBookList.add(book);
         }
