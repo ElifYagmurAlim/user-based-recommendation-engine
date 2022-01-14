@@ -1,14 +1,7 @@
-import 'dart:convert';
-import 'dart:io';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:http/http.dart' as http;
 import 'package:nnn/models/books.dart';
 import 'package:nnn/screens/home/localwidgets/bookdetailswidgets/book_details_form_screen.dart';
-import 'package:nnn/services/database.dart';
 
 class RecommendationFormScreen extends StatefulWidget {
   const RecommendationFormScreen(
@@ -43,9 +36,6 @@ class _RecommendationFormScreenState extends State<RecommendationFormScreen> {
                     child: Container(
                       child: Row(
                         children: [
-                          // Container(
-                          //   width: 320,
-                          //   child:
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
