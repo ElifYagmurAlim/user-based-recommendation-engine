@@ -57,7 +57,7 @@ class VbookDatabase {
   Future<String> createBooks(Book book) async {
     String retVal = "error";
     try {
-      bookCollection.doc(book.isbn13).set({
+      bookCollection.doc(book.isbn13 + "_" + _auth.currentUser!.uid).set({
         'userID': _auth.currentUser!.uid,
         'bookTitle': book.title,
         'bookAuthor': book.authors,

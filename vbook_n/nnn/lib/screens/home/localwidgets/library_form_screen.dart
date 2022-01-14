@@ -120,7 +120,9 @@ class _LibraryFormScreenState extends State<LibraryFormScreen> {
                                 height: 120,
                                 onPressed: () {
                                   String isbn = data.docs[index]['isbn13'];
-                                  VbookDatabase().deleteBook(isbn);
+                                  String userid = _auth.currentUser!.uid;
+                                  VbookDatabase()
+                                      .deleteBook(isbn + "_" + userid);
                                 },
                                 child: Icon(
                                   Icons.delete_outline,
